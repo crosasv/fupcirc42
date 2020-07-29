@@ -53,7 +53,7 @@ export class ResultsComponent implements OnInit, OnChanges {
     private loadingService: LoadingService) { }
 
   ngOnInit() {
-    this.getCampus();
+    //this.getCampus();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -68,13 +68,13 @@ export class ResultsComponent implements OnInit, OnChanges {
     }
   }
 
-  private getCampus() {
+/*   private getCampus() {
     this.searchService.getCampus().subscribe(
       (res:Array<any>) => {
         this.dataForm.campus = res;
       }
     );
-  }
+  } */
 
   asignarBeneficios(){
     this.loadingService.updateLoading(true)

@@ -121,6 +121,8 @@ export class SearchComponent implements OnInit {
                               this.dataStudent = rz;
                               //console.log('datastudent', this.dataStudent)
                               //console.log('nombre',this.dataStudent[0].NOMBRE);
+
+                              //Llega hasta aquí donde se supone que se cargan los combobox de sede y varios que se ven en la maqueta
                             }
                           );
                           this.loadingService.updateLoading(false);

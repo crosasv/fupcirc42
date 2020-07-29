@@ -27,11 +27,6 @@ export class UserService {
         })
       );
   }
-  public getRolesUsuario(rut: string, type: string) {
-    // SELECT, UPDATE
-    const url = `${this.apiURL}sesion/getRolesUsuario?pers_nrut=${rut}&apli_caplicacion=CTACTET1T2&tipo_consulta=${type}`;
-    return this.http.post<any>(url, this.httpOptions);
-  }
 
   public redirectToHome(): void {
     window.location.href = 'https://portales.inacap.cl/';
