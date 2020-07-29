@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  apiUrl: 'http://localhost:59510/',//'https://siga.desa.inacap.cl/Inacap.siga.CtaCteT1T2/', //,
+  apiUrl: 'https://siga.desa.inacap.cl/Inacap.siga.FUP_Circ42/', //,
   production: false
 };
 
