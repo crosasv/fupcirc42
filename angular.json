@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "fupart68": {
+    "fupcirc42": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/fupart68",
+            "outputPath": "dist/fupcirc42",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -116,24 +116,24 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "fupart68:build"
+            "browserTarget": "fupcirc42:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "fupart68:build:production"
+              "browserTarget": "fupcirc42:build:production"
             },
             "test": {
-              "browserTarget": "fupart68:build:production"
+              "browserTarget": "fupcirc42:build:production"
             },
             "desa": {
-              "browserTarget": "fupart68:build:production"
+              "browserTarget": "fupcirc42:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "fupart68:build"
+            "browserTarget": "fupcirc42:build"
           }
         },
         "test": {
@@ -172,7 +172,7 @@
         }
       }
     },
-    "fupart68-e2e": {
+    "fupcirc42-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -181,11 +181,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "fupart68:serve"
+            "devServerTarget": "fupcirc42:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "fupart68:serve:production"
+              "devServerTarget": "fupcirc42:serve:production"
             }
           }
         },
@@ -201,7 +201,7 @@
       }
     }
   },
-  "defaultProject": "fupart68",
+  "defaultProject": "fupcirc42",
   "cli": {
     "analytics": "4150044c-6bae-4038-af20-c82fed51a2f6"
   }
