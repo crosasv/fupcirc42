@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="es"> 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Postulaci&oacute;n Art. 68 RA</title>
+  <link rel="shortcut icon" href="img/favicon.ico" />
+  <link rel="stylesheet" href="css/mdb.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="d-flex flex-column">
+  
+  <div class="page-content">
+    <header class="header">
+      <div class="container">
+        <div class="header-logo">
+          <a href="http://www.inacap.cl">
+            <img src="img/isotipo.png" alt="INACAP" class="logo-mobile">
+            <img src="img/logo-inacap.png" alt="INACAP" class="logo">
+          </a>
+        </div>
+        <div class="header-title">
+          <h1>Postulaci&oacute;n Art. 68 RA</h1>
+        </div>
+        <div class="user-info">
+          <div class="user-name">
+            <i class="material-icons">person</i>
+            <p>Mar&iacute;a Jos&eacute; Ayala Rodr&iacute;guez</p>
+          </div>
+          <a href="#"><i class="material-icons ml-4">exit_to_app</i></a>
+        </div>
+      </div>
+    </header>
+    
+    <main class="container pt-2">
+      <section class="mb-5 mt-1">
+        
+        <div class="card mb-3" id="buscar">
+          <div class="card-header">
+            <h3 class="float-left h3-responsive mb-0">Buscar Alumno</h3>
+            <span class="header-icons float-right">
+              <button class="btn-none toggle-expand-btn" onclick="toggleExpandCard(this);"></button>
+            </span>
+          </div>
+          <div class="card-body">
+            <div class="row align-items-start mb-3">
+              
+              <div class="col-12 col-md-4">
+                
+                <div id="rut-container" class="md-form mb-0 ">
+                  <input type="text" id="rut-alumno" class="form-control mb-1" placeholder="Ej. 13233125-K">
+                  <label for="rut-alumno" class="">RUT</label>
+                </div>
+                
+              </div>
+              
+              <div class="col-12 col-md-8 d-flex justify-content-end">
+                
+                <button id="btnBuscar" class="btn btn-default waves-effect waves-light d-flex align-items-center mt-3" onclick="showResults(this);showLoading()">
+                  <i class="material-icons mr-2">search</i>
+                  <span>Buscar</span>
+                </button>
+                
+              </div>
+              
+            </div>
+            
+            
+          </div>
+        </div>
+        
+        
+        <div class="card expand_less mb-3" id="resultados" style="display: none;">
+          <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
+            
+            <h3 class="h3-responsive">
+              <span id="nombre-alumno">
+                Maximo Alejandro Soto Salinas
+              </span>
+              <span class="px-2 grey-text">|</span>
+              <span id="rut-alumno">
+                12.134.421-K
+              </span>
+            </h3>
+            
+            
+            <div class="header-icons float-right">
+              <div class="badge badge-info mr-2">El sistema lo ha reconocido como postulante NUEVO</div>
+              <button class="btn-none toggle-expand-btn" onclick="toggleExpandCard(this);"></button>
+            </div>
+            
+          </div>
+          
+          <div class="card-body">
+            
+            <div class="row">
+              
+              
+              <div class="col-12">
+                
+                
+                <h5 class="h5-responsive font-weight-bold mb-0">Semestre <span id="periodo">Oto&ntilde;o 2018</span></h5>
+                
+                <div class="row my-3">
+                  
+                  <div class="col-12 col-md-6">
+                    
+                    <div class="md-form">
+                      <select class="mdb-select">
+                        <option value="" disabled selected>Seleccionar Sede</option>
+                        <option value="1">Arica</option>
+                        <option value="2">Iquique</option>
+                        <option value="2">Rancagua</option>
+                      </select>
+                      <label>Sede Postulaci&oacute;n</label>
+                    </div>
+                    
+                  </div>
+                  
+                  <div class="col-12 col-md-6">
+                    
+                    <div class="md-form">
+                      <select class="mdb-select">
+                        <option value="" disabled selected>Seleccionar Carrera</option>
+                        <option value="1">Carrera 1</option>
+                        <option value="2">Carrera 2</option>
+                        <option value="2">Carrera 3</option>
+                      </select>
+                      <label>Carrera Postulaci&oacute;n</label>
+                    </div>
+                    
+                  </div>
+                  
+                  <div class="col-12 col-md-6">
+                    
+                    <div class="md-form">
+                      <select class="mdb-select">
+                        <option value="" disabled selected>Seleccionar Especialidad</option>
+                        <option value="1">Especialidad 1</option>
+                        <option value="2">Especialidad 2</option>
+                        <option value="2">Especialidad 3</option>
+                      </select>
+                      <label>Especialidad/Menci&oacute;n</label>
+                    </div>
+                    
+                  </div>
+                  
+                  <div class="col-12 col-md-6">
+                    
+                    <div id="jornada" class="md-form">
+                      <select class="mdb-select">
+                        <option value="" disabled selected>Seleccionar Jornada</option>
+                        <option value="1">Diurna</option>
+                        <option value="2">Vespertina</option>
+                      </select>
+                      <label>Jornada Postulaci&oacute;n</label>
+                    </div>
+                    
+                  </div>
+                  
+                </div>
+                
+                <div id="informacion" class="d-none">
+                  <h5 class="h5-responsive font-weight-bold mt-4">
+                    Caracter&iacute;sticas de la Carrera
+                  </h5>
+                  
+                  <div class="row my-3">
+                    
+                    <div class="col-12">
+                      
+                      <div class="d-flex flex-wrap">
+                        <p class="grey-text fb-20">
+                          T&iacute;tulo al cual opta:
+                        </p>
+                        <p>
+                          T&eacute;cnico de Nivel Superior Programador de Aplicaciones Computacionales
+                        </p>
+                      </div>
+                      
+                      <div class="d-flex flex-wrap">
+                        <p class="grey-text fb-20">
+                          Duraci&oacute;n:
+                        </p>
+                        <p>
+                          4 semestres
+                        </p>
+                      </div>
+                      
+                      <div class="d-flex flex-wrap">
+                        <p class="grey-text fb-20">
+                          Instituci&oacute;n:
+                        </p>
+                        <p>
+                          Centro de Formaci&oacute;n T&eacute;cnica
+                        </p>
+                      </div>
+                      
+                    </div>
+                    
+                    
+                    
+                  </div>
+                  
+                  
+                  <div class="row mb-2">
+                    <div class="col-12 d-flex">
+                      <button class="btn btn-default waves-effect waves-light d-flex align-items-center" onclick="cargarInfo();">
+                        <span>Confirmar</span>
+                      </button>
+                    </div>
+                  </div>
+
+
+                  <form id="informacion-personal" class="needs-validation d-none" onsubmit="validar(event)" novalidate>
+                    
+                    <h5 class="h5-responsive font-weight-bold mt-4 mb-0">
+                      Informaci&oacute;n Personal
+                    </h5>
+                    
+                    
+                    <div class="row my-3">
+                      
+                      
+                      <div class="col-12 col-sm-4">
+                        <div id="nombres" class="md-form mb-3">
+                          <input type="text" id="nombres" class="form-control" placeholder="Maximo Alejandro" required>
+                          <label for="nombres" class="">Nombres *</label>
+                          
+                          
+                          <div class="invalid-feedback">
+                            Este campo es requerido
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-4">
+                        <div class="md-form mb-3">
+                          <input type="text" id="paterno" class="form-control" placeholder="Soto" required>
+                          <label for="paterno" class="">Apellido Paterno *</label>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-4">
+                        <div class="md-form mb-3">
+                          <input type="text" id="materno" class="form-control" placeholder="Salinas">
+                          <label for="materno" class="">Apellido Materno *</label>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-4">
+                        <div class="md-form mb-3">
+                          <input type="text" id="rut-nuevo" class="form-control" placeholder="12.134.421-K">
+                          <label for="rut-nuevo" class="">RUT</label>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-4">
+                        <div class="md-form mb-3">
+                          <select class="mdb-select" required>
+                            <option value="" disabled selected>Seleccionar G&eacute;nero</option>
+                            <option value="1">Masculino</option>
+                            <option value="2">Femenino</option>
+                          </select>
+                          <label>G&eacute;nero *</label>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-4">
+                        <div class="md-form mb-3">
+                          <input placeholder="Seleccionar Fecha" type="text" id="date-picker-example" class="form-control datepicker" required>
+                          <label for="date-picker-example" class="active">Fecha de Nacimiento *</label>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-4">
+                        <div class="md-form mb-3">
+                          <select class="mdb-select" required>
+                            <option value="" disabled selected>Seleccionar Estado</option>
+                            <option value="1">Soltero</option>
+                            <option value="2">Casado</option>
+                          </select>
+                          <label>Estado Civ&iacute;l</label>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-4">
+                        <div class="md-form mb-3">
+                          <select class="mdb-select" required>
+                            <option value="" disabled selected>Seleccionar Ocupaci&oacute;n</option>
+                            <option value="1">Ocupaci&oacute;n 1</option>
+                            <option value="2">Ocupaci&oacute;n 2</option>
+                          </select>
+                          <label>Ocupaci&oacute;n *</label>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-4">
+                        <div class="md-form mb-3">
+                          <input type="email" id="email" class="form-control" required>
+                          <label for="email" class="">Email Personal *</label>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-4 d-flex align-items-start mt-2">
+                        <p class="form-label mr-3">
+                          Nacionalidad
+                        </p>
+                        <div>
+                          <fieldset class="form-check pl-0">
+                            <input class="form-check-input" name="group1" type="radio" id="radio-chile" checked="checked">
+                            <label class="form-check-label" for="radio-chile">Chilena</label>
+                          </fieldset>
+                          <fieldset class="form-check pl-0">
+                            <input class="form-check-input" name="group1" type="radio" id="radio-extranjero">
+                            <label class="form-check-label" for="radio-extranjero">Extranjera</label>
+                          </fieldset>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-4 nacionalidad-extranjera d-none">
+                        <div class="md-form mb-3">
+                          <select class="mdb-select">
+                            <option value="" disabled selected>Seleccionar Pa&iacute;s</option>
+                            <option value="1">Pa&iacute;s 1</option>
+                            <option value="2">Pa&iacute;s 2</option>
+                            <option value="3">Pa&iacute;s 3</option>
+                          </select>
+                          <label>Pa&iacute;s de Origen</label>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    
+                    
+                    
+                    <h5 class="h5-responsive font-weight-bold mt-5">
+                      Direcci&oacute;n del Grupo Familiar
+                    </h5>
+                    
+                    <div class="row my-3">
+                      <div class="col-12 col-sm-4">
+                        <div id="region" class="md-form mb-3">
+                          <select class="mdb-select" required>
+                            <option value="" disabled selected>Seleccionar Regi&oacute;n</option>
+                            <option value="1">Regi&oacute;n 1</option>
+                            <option value="2">Regi&oacute;n 2</option>
+                          </select>
+                          <label>Regi&oacute;n *</label>
+                          
+                          <div class="invalid-feedback">
+                            Este campo es requerido
+                          </div>
+                        </div>
+                      </div>
+                      
+                      
+                      <div class="col-12 col-sm-4">
+                        <div class="md-form mb-3">
+                          <select class="mdb-select" required>
+                            <option value="" disabled selected>Seleccionar Ciudad</option>
+                            <option value="1">Ciudad 1</option>
+                            <option value="2">Ciudad 2</option>
+                          </select>
+                          <label>Ciudad *</label>
+                        </div>
+                      </div>
+                      
+                      
+                      <div class="col-12 col-sm-4">
+                        <div class="md-form mb-3">
+                          <select class="mdb-select" required>
+                            <option value="" disabled selected>Seleccionar Comuna</option>
+                            <option value="1">Comuna 1</option>
+                            <option value="2">Comuna 2</option>
+                          </select>
+                          <label>Comuna *</label>
+                        </div>
+                      </div>
+                      
+                      
+                      <div class="col-12 col-sm-8">
+                        <div class="md-form mb-3">
+                          <input type="text" id="direccion" class="form-control">
+                          <label for="direccion" class="">Direcci&oacute;n *</label>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-4">
+                        <div class="md-form mb-3">
+                          <input type="text" id="numero" class="form-control">
+                          <label for="numero" class="">N&uacute;mero *</label>
+                        </div>
+                      </div>
+                      
+                      
+                      <div class="col-12 col-sm-6">
+                        <div class="md-form mb-3">
+                          <input type="text" id="poblacion" class="form-control">
+                          <label for="poblacion" class="">Poblaci&oacute;n</label>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-3">
+                        <div class="md-form mb-3">
+                          <input type="text" id="block" class="form-control">
+                          <label for="block" class="">Block</label>
+                        </div>
+                      </div>
+                      
+                      <div class="col-12 col-sm-3">
+                        <div class="md-form mb-3">
+                          <input type="text" id="depto" class="form-control">
+                          <label for="depto" class="">Depto</label>
+                        </div>
+                      </div>
+                      
+                      
+                      <div class="col-4 col-sm-2">
+                        <div class="md-form mb-3">
+                          <select class="mdb-select">
+                            <option value="" disabled selected>02</option>
+                            <option value="2">32</option>
+                          </select>
+                          <label>Tel&eacute;fono</label>
+                        </div>
+                      </div>
+                      <div class="col-8 col-sm-4 pl-0">
+                        <div class="md-form mb-3">
+                          <input type="text" id="telefono" class="form-control">
+                          
+                        </div>
+                      </div>
+                      
+                      <div class="col-4 col-sm-1">
+                        <div class="md-form mb-3">
+                          <label>+569</label>
+                          <label class="active">Celular</label>
+                        </div>
+                      </div>
+                      <div class="col-8 col-sm-5 ">
+                        <div class="md-form mb-3">
+                          <input type="text" id="celular" class="form-control">
+                        </div>
+                      </div>
+                      
+                    </div>
+                    
+                    
+                    <div class="row">
+                      <div class="col-md-12 d-flex justify-content-end pt-4 ">              
+                        <button  type="submit" class="btn btn-rounded btn-default waves-effect mr-0">
+                          <span class="d-flex align-items-center">
+                            <i class="material-icons mr-1 icon-1x">send</i>
+                            <span>Enviar Postulaci&oacute;n</span>
+                          </span>
+                        </button>
+                      </div>
+                    </div>
+                    
+                  </form>
+                  
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          
+        </div>
+        
+        
+        
+        <div class="card mb-3 d-none" id="certificado">
+          <div class="card-header  d-flex justify-content-between align-items-center flex-wrap">
+            <h3 class="d-flex justify-content-between flex-wrap align-items-center h3-responsive mb-0">
+              Constancia de Env&iacute;o de Postulaci&oacute;n
+            </h3>
+            
+            
+            
+            <div class="badge badge-info mr-2">Folio: <span>93492798</span></div>
+          </div>
+          
+          
+          
+          <div class="card-body">
+            <div class="row align-items-start mb-3">
+              
+              <div class="col-12">
+                
+                <!-- class="grey-text fb-30" -->
+                
+                <div class="d-flex flex-wrap">
+                  <p class="fb-15">
+                    Nombre Completo:
+                  </p>
+                  <p class="font-weight-bold">
+                    Maximo Alejandro Soto Salinas
+                  </p>
+                </div>
+                
+                
+                <div class="d-flex flex-wrap">
+                  <p class="fb-15">
+                    RUT:
+                  </p>
+                  <p class="font-weight-bold">
+                    12.134.421-K
+                  </p>
+                </div>
+                
+                
+                <div class="d-flex flex-wrap">
+                  <p class="fb-15">
+                    Sede Postulaci&oacute;n:
+                  </p>
+                  <p class="font-weight-bold">
+                    IQUIQUE
+                  </p>
+                </div>
+                
+                <div class="d-flex flex-wrap">
+                  <p class="fb-15">
+                    Carrera Postulaci&oacute;n:
+                  </p>
+                  <p class="font-weight-bold">
+                    Programador de Aplicaciones Computacionales
+                  </p>
+                </div>
+                
+                
+                <div class="d-flex flex-wrap">
+                  <p class="fb-15">
+                    Especialidad/Menci&oacute;n:
+                  </p>
+                  <p class="font-weight-bold">
+                    Sin Menci&oacute;n
+                  </p>
+                </div>
+                
+                <div class="d-flex flex-wrap">
+                  <p class="fb-15">
+                    Jornada Postulaci&oacute;n
+                  </p>
+                  <p class="font-weight-bold">
+                    Diurna
+                  </p>
+                </div>
+                
+              </div>
+              
+              
+              <div class="col-12 mt-3">
+                <p>
+                  El presente Documento Acredita tu Postulaci&oacute;n a INACAP, en ning&uacute;n caso representa una reserva de Matr&iacute;cula
+                </p>
+                <p>
+                  Para ello debes acercarte a cualquier sede de INACAP a lo largo de Chile y hacer efectiva tu matr&iacute;cula 2018.
+                </p>
+                <p>
+                  Si desea realizar cambios a tu postulaci&oacute;n, ya enviada a INACAP, debes hacerlo en cualquier Oficina de Registro Curricular a lo largo de Chile.
+                </p>
+                <p class="font-weight-bold mt-3">
+                  Documentaci&oacute;n que debe presentar al momento de Matricularse:
+                </p>
+                <ul>
+                  <li>Licencia de Ense&ntilde;anza Media</li>
+                </ul>
+              </div>
+              
+            </div>
+          </div>
+          
+        </div>
+      </section>
+    </main>
+    
+    
+    
+    
+    <div class="modal fade" id="ModalConfirmacion" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <p class="heading lead">Postulaci&oacute;n</p>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body px-1">
+            
+            <div class="row">
+              <div class="col-12">
+                <p>
+                  Si est&aacute; de acuerdo con la informaci&oacute;n entregada, pulse el bot&oacute;n <strong>ACEPTAR</strong>, con lo que su solicitud de postulaci&oacute;n ser&aacute; cerrada; es deecir, el formulario ser&aacute; enviado y no podr&aacute; hacer m&aacute;s modificaciones. Si no est&aacute; seguro de enviar el formulario, pulse el bot&oacute;n <strong>CERRAR</strong>, con el cual podr&aacute; ingresar otra vez al formulario y modificar los datos ya ingresados.
+                </p>
+                
+                <p>
+                  Una vez matriculado podr&aacute;s postular a diversos beneficios, internos y externos, tales como el pase escolar, becas y cr&eacute;ditos. Inf&oacute;rmate regularmente en la p&aacute;gina web de INACAP o en la oficina de Asuntos Estudiantiles de tu sede.
+                </p>
+              </div>
+            </div>
+            
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary waves-effect waves-light" data-dismiss="modal">Cerrar</button>
+            <button id="aceptar-envio" class="btn btn-default waves-effect waves-light" data-dismiss="modal">Aceptar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- Loading Overlay -->
+    <div class="loading-backdrop" id="loadingOverlay">
+      <div class="loading-circle">
+        <div class="preloader-wrapper big active"><div class="spinner-layer spinner-white-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div>
+      </div>
+    </div>
+    
+    
+  </div>
+  
+  <footer class="page-footer mt-5">
+    <div class="container py-3">
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="d-md-flex align-items-center justify-content-between w-75">
+          <span>MESA DE SERVICIOS:</span>
+          <a href="http://soporte.inacap.cl" class="d-flex align-items-center">
+            <i class="material-icons mr-1">language</i>
+            <span>soporte.inacap.cl</span>
+          </a>
+          <a href="mailto:ayuda@inacap.cl" class="d-flex align-items-center">
+            <i class="material-icons mr-1">mail</i>
+            <span>ayuda@inacap.cl</span>
+          </a>
+          <a href="tel:+56224305700" class="d-flex align-items-center">
+            <i class="material-icons mr-1">phone</i>
+            <span>+56 2 24305700  Anexo 5700</span>
+          </a>
+        </div>
+        <div class="logo-gst"><img src="img/logo-gst.png" alt=""></div>
+      </div>
+    </div>
+  </footer>
+  
+  
+  <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="js/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="js/mdb.min.js"></script>
+  
+  <script type="text/javascript" src="js/datatables.min.js"></script>
+  <!--Initializations-->
+  
+  <script>
+    
+    $(document).ready(function () {
+      
+      $('.mdb-select').material_select();
+      
+      $('.expand_less').children('.card-body').hide();
+      
+      $('.datepicker').pickadate({
+        format: 'dd/mm/yyyy',
+        selectYears: 40
+      });
+      
+      //Buscar al presionar Enter
+      $('#buscar').keypress(function(e){
+        if(e.which == 13){
+          $('#btnBuscar').click();
+        }
+      });
+      
+      //Muestra campos de nacionalidad
+      $('#radio-extranjero').click(function() {
+        if($('#radio-extranjero').is(':checked')) { 
+          $('.nacionalidad-extranjera').removeClass('d-none');
+        } 
+      });
+      
+      //Oculta campos de nacionalidad
+      $('#radio-chile').click(function() {
+        if($('#radio-chile').is(':checked')) { 
+          $('.nacionalidad-extranjera').addClass('d-none');
+        } 
+      });
+      
+      //Ejemplo de carga de datos una vez completado el ultimo select
+      $('#jornada .dropdown-content li:nth-child(2)').click(function() {
+        showLoading();
+        setTimeout(function(){
+          $('#informacion').removeClass('d-none');
+        }, 1000);
+      });
+      
+      $('#jornada .dropdown-content li:nth-child(3)').click(function() {
+        showLoading();
+        setTimeout(function(){
+          $('#informacion').removeClass('d-none');
+        }, 1000);
+      });
+      
+      
+      
+      
+      //Click al Enviar Postulacion
+      $('#aceptar-envio').click(function() {
+        
+        //Muestra la carga
+        showLoading();
+        
+        //Oculta las cards y muestra el certificado
+        setTimeout(function(){
+          $('#buscar').addClass('d-none');
+          $('#resultados').addClass('d-none');
+          $('html, body').animate({scrollTop:0}, 'slow');
+          $('#certificado').removeClass('d-none');
+          return false;
+        }, 1000);
+        
+      });
+      
+      
+    });
+    
+    function cargarInfo(){
+      showLoading();
+      setTimeout(function(){
+        toastr.warning('No se pudieron guardar los datos.');
+      },1000)
+    }
+    
+    function validarNombre(campoNombres){
+      if(campoNombres == 0 || campoNombres == null){
+        $('#nombres .invalid-feedback').css('display', 'block');
+        $('#nombres input').css('border-color','red');
+        return false;
+        
+      } else {
+        $('#nombres .invalid-feedback').css('display', 'none');
+        $('#nombres input').css('border-color','#ced4da');
+        return true;
+      }
+      
+    }
+    
+    
+    function validarRegion(region){
+      if(region == 0 || region == null){
+        $('#region .invalid-feedback').css('display', 'block');
+        $('#region .select-wrapper input.select-dropdown').css('border-color','red');
+        return false;
+      } else {
+        $('#region .invalid-feedback').css('display', 'none');
+        $('#region .select-wrapper input.select-dropdown').css('border-color','#ced4da');
+        return true;
+        
+      }
+    }
+    
+    function validar(e){
+      e.preventDefault();
+      
+      $campoNombres = $('#nombres input').val();
+      validarNombre($campoNombres);
+      
+      $region = $('#region select').val();
+      validarRegion($region);
+      
+      
+      if ( validarNombre($campoNombres) && (validarRegion($region)))
+      {
+        $('#ModalConfirmacion').modal('show')
+      }
+    }
+    
+    function showResults(thisCard){
+      $('#resultados').show();
+      toggleExpandCard(thisCard,'resultados');
+      
+    }
+    
+    function showLoading(){
+      $('#loadingOverlay').show();
+      setTimeout(function(){
+        hideLoading();
+      }, 1000);
+    }
+    
+    function hideLoading(){
+      $('#loadingOverlay').hide();
+    }
+    
+    
+  </script>
+</body>
+
+</html>

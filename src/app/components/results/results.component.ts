@@ -64,7 +64,7 @@ export class ResultsComponent implements OnInit, OnChanges {
       });
     }
     if(changes.type && changes.type.currentValue){
-      // $('#resultados').hide();
+       //$('#resultados').hide();
     }
   }
 
