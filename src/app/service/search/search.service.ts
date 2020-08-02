@@ -24,8 +24,9 @@ export class SearchService {
     const url = `${this.apiURL}datos/getBloqueos?i_pers_nrut=${pers_nrut}&i_peri_ccod=${i_peri_ccod}`;
     return this.http.post<any>(url, this.httpOptions)
       .pipe(
-        map((res: Array<SelectOptionsBase>) => {
-          return res;
+        map((res: any) => {
+          const formaterToJson = JSON.parse(res);
+          return formaterToJson;
         })
       );
   }
@@ -34,7 +35,8 @@ export class SearchService {
     return this.http.post<any>(url, this.httpOptions)
       .pipe(
         map((res: any) => {
-          return res;
+          const formaterToJson = JSON.parse(res);
+          return formaterToJson;
         })
       );
   }
@@ -44,8 +46,8 @@ export class SearchService {
     return this.http.post<any>(url, this.httpOptions)
       .pipe(
         map((res: any) => {
-          console.log('cointinuidad', res);
-          return res;
+          const formaterToJson = JSON.parse(res);
+          return formaterToJson;
         })
       );
   }
@@ -55,8 +57,8 @@ export class SearchService {
     return this.http.post<any>(url, this.httpOptions)
       .pipe(
         map((res: any) => {
-          
-          return res;
+          const formaterToJson = JSON.parse(res);
+          return formaterToJson;
         })
       );
   }
@@ -64,8 +66,9 @@ export class SearchService {
     const url = `${this.apiURL}datos/getDatosPostulacion?i_post_ncorr=${post_ncorr}`;
     return this.http.post<any>(url, this.httpOptions)
       .pipe(
-        map((res: Array<studentInterface>) => {
-          return res;
+        map((res: any) => {
+          const formaterToJson = JSON.parse(res);
+          return formaterToJson;
         })
       );
   }

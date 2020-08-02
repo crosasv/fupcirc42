@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
           (res: UserInterface) => {
             this.dataUser = res;
             //console.log('resssss',res);
-            this.loadData();
+            // this.loadData(); 
           }
         );
     }

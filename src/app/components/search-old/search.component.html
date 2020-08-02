@@ -40,24 +40,13 @@
                   <span aria-hidden="true">&times;</span>
               </button>
           </div>
-          <div class="modal-body p-0" *ngIf="modalBloqueoDescription === ''; else modalDescription">
+          <div class="modal-body p-0">
               <div class="row">
                     <div class="col-md-12 mt-4">
                         <p class="text-center">El estudiante presenta Bloqueo</p>
                     </div>                          
               </div>                       
           </div>
-
-          <ng-template #modalDescription>
-            <div class="modal-body p-0">
-              <div class="row">
-                    <div class="col-md-12 mt-4">
-                        <p class="text-center">{{modalBloqueoDescription}}</p>
-                    </div>                          
-              </div>                       
-          </div>
-          </ng-template>
-          
           <div class="modal-footer pr-0">
             <a class="btn btn-default waves-effect waves-light" data-dismiss="modal">Cerrar</a>
             <!-- <a class="btn btn-default waves-effect waves-light" data-dismiss="modal" onclick="toastr.success('Se asign&oacute; con &eacute;xito el beneficio a 22 alumnos. <br> Se han enviado los comprobantes a los correos de los alumnos.');">Aceptar</a> -->
@@ -65,3 +54,17 @@
       </div>
   </div>
 </div>
+<!-- 
+<app-results 
+  [dataUser]="dataUser"
+  [dataStudent]="dataStudent"
+  [dataBasic]="dataBasic"
+  [dataTable]="dataTableResult" 
+  [typeOfBenefit]="searchForm.value.typeOfBenefit"
+  [period]="searchForm.value.period"
+  [caja]="searchForm.value.caja"
+  [campus]="searchForm.value.campus"
+  [type]="typeOfBenefitforTable"
+  [typeRoleUser]="typeRoleUser"
+  (refreshTable)="refreshTable($event)"
+></app-results> -->

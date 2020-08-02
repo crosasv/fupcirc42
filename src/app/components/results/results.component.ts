@@ -29,6 +29,9 @@ export class ResultsComponent implements OnInit, OnChanges {
   @Input() dataStudent: studentInterface;
   @Input() dataBasic: basicInterface;
 
+
+  public nothingWorks = true;
+
   //FUP
   public dataFormSearch = {
     campus: [],
