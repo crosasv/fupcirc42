@@ -102,3 +102,8 @@ export interface basicInterface {
     PERI_TDESC: string;
     ANOS_CCOD: number;
 }
+
+export interface Sede {
+    SEDE_CCOD: number;
+    SEDE_TDESC: string;
+}

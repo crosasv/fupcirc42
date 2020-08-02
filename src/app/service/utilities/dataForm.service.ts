@@ -17,6 +17,8 @@ export class DataFormService {
     tipoCuentaBanco: Array<TipoCuentaBancoInterface>()
   };
 
+  private dataStudent = new BehaviorSubject({});
+
   constructor() { }
 
   getDataForm(): Observable<any> {
@@ -24,15 +26,10 @@ export class DataFormService {
   }
 
   private refresh() {
-    // Emitir los nuevos valores para que todos los que dependan se actualicen.
     this.dataFormSubject.next(this.dataForm);
   }
 
   createDataForm(dataForm: any, type: string) {
-    /**
-    * Evitar hacer this.user.push() pues estaríamos modificando los valores directamente,
-    * se debe generar un nuevo array !!!!.
-    */
     this.dataForm[type] = dataForm;
     this.refresh();
   }
@@ -42,16 +39,17 @@ export class DataFormService {
     this.refresh();
   }
 
-  approveAll() {
-    /**
-    * Evitar hacer un forEach e ir modificando cada property !!! this.users.forEach(user => user.isPremium = true);
-    * 
-    * Pudieramos Utilizar el .map pues siempre nos retorna un nuevo array pero si olvidamos el Object.assign( {}, ... )
-    * siempre estariamos tomando la referencia del objeto en memoria y estariamos modificando nuevamente el valor
-    * original en vez de crear una nueva copia o version del dato.
-    * 
-    
-    this.dataForm = this.dataForm.map(user => Object.assign({}, user, { isPremium: true }));
-    this.refresh();*/
+  getStudent(): Observable<any> {
+    return this.dataStudent.asObservable();
   }
+
+  private refreshStudent() {
+    this.dataStudent.next(this.dataForm);
+  }
+  
+  setStudent(student: any) {
+    this.dataForm = student;
+    this.refreshStudent();
+  }
+
 }

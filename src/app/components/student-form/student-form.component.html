@@ -1,4 +1,4 @@
-<div class="card expand_less mb-3" id="resultados" style="display: none;">
+<div class="card expand_less mb-3" id="resultados">
   <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
     
     <h3 class="h3-responsive">
@@ -36,72 +36,94 @@
               <div class="dropdown">
   
                 <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" value="">
-                <label class="select__label">Seleccionar Sede</label>
+                aria-haspopup="true" aria-expanded="false" value="{{comboSelected.sede}}">
+                <label class="select__label">Sede</label>
                 <div class="invalid-feedback" >
                   Este Campo es obligatorio.
                 </div>
                 
-                <div class="dropdown-menu dropdown-primary">
+                <div class="dropdown-menu dropdown-primary" *ngIf="dataCombo.sede.length">
                   <a class="dropdown-item disabled">
                     Seleccionar Sede
                   </a> 
-                  <a class="dropdown-item">
-                    Arica
+                  <a class="dropdown-item" *ngFor="let sede of dataCombo.sede" (click)="dropSelectSedes('sede',sede)">
+                    {{ sede.SEDE_TDESC }}
                   </a>  
                 </div>
               </div>
+            </div>
+          </div>
+          
+          <div class="col-12 col-md-6">
+            <div class="md-form">
+              <div class="dropdown">
   
-            </div>
-            <div class="md-form">
-              <select class="mdb-select">
-                <option value="" disabled selected>Seleccionar Sede</option>
-                <option value="1">Arica</option>
-                <option value="2">Iquique</option>
-                <option value="2">Rancagua</option>
-              </select>
-              <label>Sede Postulaci&oacute;n</label>
-            </div>
-            
-          </div>
-          
-          <div class="col-12 col-md-6">
-            
-            <div class="md-form">
-              <select class="mdb-select">
-                <option value="" disabled selected>Seleccionar Carrera</option>
-                <option value="1">Carrera 1</option>
-                <option value="2">Carrera 2</option>
-                <option value="2">Carrera 3</option>
-              </select>
-              <label>Carrera Postulaci&oacute;n</label>
+                <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" value="{{comboSelected.carreraPostulacion}}">
+                <label class="select__label">Carrera Postulación</label>
+                <div class="invalid-feedback" >
+                  Este Campo es obligatorio.
+                </div>
+                
+                <div class="dropdown-menu dropdown-primary" *ngIf="dataCombo.carreraPostulacion.length">
+                  <a class="dropdown-item disabled">
+                    Seleccionar Carrera
+                  </a> 
+                  <!-- <a class="dropdown-item" *ngFor="let campu of dataCombo.sede" (click)="dropSelect('campus',campu)"> -->
+                  <a class="dropdown-item" *ngFor="let carrera of dataCombo.carreraPostulacion" (click)="dropSelectCarrera('carreraPostulacion',carrera)">
+                    {{ carrera.CARR_TDESC }}
+                  </a>  
+                </div>
+              </div>
             </div>
             
           </div>
           
           <div class="col-12 col-md-6">
-            
             <div class="md-form">
-              <select class="mdb-select">
-                <option value="" disabled selected>Seleccionar Especialidad</option>
-                <option value="1">Especialidad 1</option>
-                <option value="2">Especialidad 2</option>
-                <option value="2">Especialidad 3</option>
-              </select>
-              <label>Especialidad/Menci&oacute;n</label>
+              <div class="dropdown">
+  
+                <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" value="{{comboSelected.especialidad}}">
+                <label class="select__label">Especialidad/Mención</label>
+                <div class="invalid-feedback" >
+                  Este Campo es obligatorio.
+                </div>
+                
+                <div class="dropdown-menu dropdown-primary" *ngIf="dataCombo.especialidad.length">
+                  <a class="dropdown-item disabled">
+                    Seleccionar Especialidad
+                  </a> 
+                  <!-- <a class="dropdown-item" *ngFor="let campu of dataCombo.sede" (click)="dropSelect('campus',campu)"> -->
+                  <a class="dropdown-item" *ngFor="let sede of dataCombo.especialidad">
+                    {{ sede.ESPE_TDESC }}
+                  </a>  
+                </div>
+              </div>
             </div>
             
           </div>
           
           <div class="col-12 col-md-6">
-            
-            <div id="jornada" class="md-form">
-              <select class="mdb-select">
-                <option value="" disabled selected>Seleccionar Jornada</option>
-                <option value="1">Diurna</option>
-                <option value="2">Vespertina</option>
-              </select>
-              <label>Jornada Postulaci&oacute;n</label>
+            <div class="md-form">
+              <div class="dropdown">
+  
+                <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" value="{{comboSelected.jornadaPostulacion}}">
+                <label class="select__label">Jornada Postulación</label>
+                <div class="invalid-feedback" >
+                  Este Campo es obligatorio.
+                </div>
+                
+                <div class="dropdown-menu dropdown-primary" *ngIf="dataCombo.jornadaPostulacion.length">
+                  <a class="dropdown-item disabled">
+                    Seleccionar Jornada
+                  </a> 
+                  <a class="dropdown-item" *ngFor="let jornada of dataCombo.jornadaPostulacion" (click)="dropSelect('jornadaPostulacion',jornada)">
+                    {{ jornada.SEDE_TDESC }}
+                  </a>  
+                </div>
+              </div>
             </div>
             
           </div>

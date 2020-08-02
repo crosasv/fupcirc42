@@ -9,6 +9,7 @@ import { UserInterface } from 'src/app/service/user/user.interface';
 import { toBase64String } from '@angular/compiler/src/output/source_map';
 import { studentInterface } from 'src/app/entities/interfaces';
 import { basicInterface } from 'src/app/entities/interfaces';
+import { DataFormService } from 'src/app/service/utilities/dataForm.service';
 
 
 declare var $: any;
@@ -39,12 +40,13 @@ export class SearchComponent implements OnInit {
   constructor(private fb: FormBuilder, 
     private searchService: SearchService, 
     private loadingService: LoadingService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private dataFormService: DataFormService) { }
 
   ngOnInit() {
     setTimeout(() => {
        this.searchForm.patchValue({rut:'17190472-2'});
-    }, 4000);
+    }, 2000);
   }
 
   /**
@@ -77,12 +79,10 @@ export class SearchComponent implements OnInit {
   }
   //TODO
   private getStudentLocked() {
-    console.log('dsada');
     const rutUnique = this.searchForm.value.rut === '' ? [-1]: this.searchForm.value.rut.split('-');
     this.loadingService.updateLoading(true);
     this.searchService.getPeriod().subscribe(
-      (res: any)=>{     
-        console.log('res', res)
+      (res: any)=>{
         this.getDataStudent(rutUnique[0], res[0].PERI_CCOD);
       });
   }
@@ -90,7 +90,6 @@ export class SearchComponent implements OnInit {
   private getDataStudent(rut: string, peri_ccod: number){
     this.searchService.getStudentLocked(rut, peri_ccod).subscribe(
       (res: any)=> {
-        console.log('res',res)
         if (res[0].BLOQUEO !== null) {
           this.loadingService.updateLoading(false);
           $('#ModalEstudianteBloqueado').modal('show');
@@ -104,7 +103,6 @@ export class SearchComponent implements OnInit {
   private getContinuidad(rut: string, peri_ccod: number){
     this.searchService.checkPlan(rut).subscribe(
       (res: any)=> {
-        console.log('getContinuidad res:::', res)
         if (res[0].CONTINUIDAD === 1) {
           this.getApplyStatus(rut, peri_ccod);          
         } else { 
@@ -120,30 +118,17 @@ export class SearchComponent implements OnInit {
   private getApplyStatus(rut: string, peri_ccod: number){
     this.searchService.getApplyStatus(rut, peri_ccod).subscribe(
       (res: any)=> {
-        console.log('getApplyStatus ress ', res)
-        if (res[0].EPOS_CCOD.length === 2) { //evaluar con vacío
-          //cerrado
-          //div que está cerrado
+        if (res[0].EPOS_CCOD.length === 2) {
         } else if (res[0].EPOS_CCOD.length != 2) {
-          //pendiente
           this.searchService.getApplicantInfo(res[0].POST_NCORR).subscribe(
             (res: any)=> {
               this.loadingService.updateLoading(false);
-              console.log('res',res)
-              // const rz = JSON.parse(res);
-              // this.dataStudent = rz;
-
-
-              //console.log('datastudent', this.dataStudent)
-              //console.log('nombre',this.dataStudent[0].NOMBRE);
-
-              //Llega hasta aquí donde se supone que se cargan los combobox de sede y varios que se ven en la maqueta
+              this.dataFormService.setStudent(res);
             }
           );
           this.loadingService.updateLoading(false);
           $('#resultados').show();
         } else {
-          //no trae datos
           $('#ModalEstudianteBloqueado').modal('show');
         }
       }
