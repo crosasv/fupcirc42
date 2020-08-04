@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
     this.loadingService.loadDummyData();
     console.log('App Version, 0.0.10')
     if (this.cookieValue === '') {
-      window.location.href = 'https://portales.inacap.cl/';
+      // window.location.href = 'https://portales.inacap.cl/';
     } else {
       // this.dataUser.data.push({NOMBRE:'María José Ayala Rodríguez'});
       this.userService.obtenerInfoUsuario(this.cookieValue)

@@ -48,14 +48,7 @@ export class SearchComponent implements OnInit {
        this.searchForm.patchValue({rut:'17190472-2'});
     }, 2000);
   }
-
-  /**
-   * keyupRut: when you press the enter in the input rut
-   *
-  public keyupRut(rut): boolean {
-    return validationRut(rut);
-  }*/
-  // convenience getter for easy access to form fields
+  
   get f() { return this.searchForm.controls; }
   public onSubmit() {
     this.isSubmitted = true;
@@ -83,6 +76,7 @@ export class SearchComponent implements OnInit {
     this.loadingService.updateLoading(true);
     this.searchService.getPeriod().subscribe(
       (res: any)=>{
+        this.dataFormService.setPeriod(res[0]);
         this.getDataStudent(rutUnique[0], res[0].PERI_CCOD);
       });
   }
@@ -123,7 +117,7 @@ export class SearchComponent implements OnInit {
           this.searchService.getApplicantInfo(res[0].POST_NCORR).subscribe(
             (res: any)=> {
               this.loadingService.updateLoading(false);
-              this.dataFormService.setStudent(res);
+              this.dataFormService.setStudent(res[0]);
             }
           );
           this.loadingService.updateLoading(false);

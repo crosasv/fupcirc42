@@ -59,7 +59,16 @@ export class ComboBoxService {
         })
       );
     }
-
+    public getCaracteristicasCarrera(i_peri_ccod, i_sede_ccod,i_carr_ccod, i_espe_ccod, i_jorn_ccod) {
+      const url = `${this.apiURL}postulacion/getCaracteristicasCarrera?i_peri_ccod=${i_peri_ccod}&i_sede_ccod=${i_sede_ccod}&_carr_ccod=${i_carr_ccod}&i_espe_ccod=${i_espe_ccod}&i_jorn_ccod=${i_jorn_ccod}`;
+      return this.http.post<any>(url, this.httpOptions)
+        .pipe(
+          map((res: any) => {
+            return res;
+          })
+        );
+    }
+  
 }
 
 

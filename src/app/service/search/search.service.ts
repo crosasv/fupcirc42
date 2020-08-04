@@ -82,6 +82,7 @@ export class SearchService {
         })
       );
   }
+  
   //FIN FUP
   public getTypeOfBenefit() {
     const url = `${this.apiURL}combobox/getCboTipoDescuento`;

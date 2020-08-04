@@ -107,3 +107,25 @@ export interface Sede {
     SEDE_CCOD: number;
     SEDE_TDESC: string;
 }
+
+export interface JornadaPostulacion {
+    JORN_CCOD: number;
+    JORN_TDESC: string;
+}
+
+export interface CarreraPostulacion {
+    CARR_CCOD: number;
+    CARR_TDESC: string;
+}
+
+export interface Especialidad {
+    ESPE_CCOD: string;
+    ESPE_TDESC: string;
+}
+
+export interface PeriodoAcademico{
+    PERI_CCOD: number;
+    TAPE_CCOD: number;
+    PERI_TDESC: string;
+    ANOS_CCOD: number;
+}
