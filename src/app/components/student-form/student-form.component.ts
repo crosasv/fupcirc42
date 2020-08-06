@@ -3,7 +3,7 @@ import { LoadingService } from 'src/app/service/utilities/loading.service';
 import { DataFormService } from 'src/app/service/utilities/dataForm.service';
 import { Observable } from 'rxjs';
 import { ComboBoxService } from 'src/app/service/comboBox/comboBox.service';
-import { studentInterface, Sede, JornadaPostulacion, CarreraPostulacion, Especialidad, PeriodoAcademico } from 'src/app/entities/interfaces';
+import { studentInterface, Sede, JornadaPostulacion, CarreraPostulacion, Especialidad, PeriodoAcademico, raceFeature } from 'src/app/entities/interfaces';
 import { FormBuilder } from '@angular/forms';
 
 declare var toastr: any;
@@ -35,6 +35,10 @@ export class StudentFormComponent implements OnInit {
 
   public studentForm ;
   isSubmitted = false;
+
+  public raceFeature: raceFeature[] = [];
+  public creaPostulacionArt68: [] = [];
+
   constructor(private comboBoxService: ComboBoxService,
     private loadingService: LoadingService,
     private dataFormService: DataFormService,
@@ -50,6 +54,7 @@ export class StudentFormComponent implements OnInit {
         ESPE_CCOD: [''],
         jornadaPostulacion: [''],
         JORN_CCOD: [''],
+        i_ofer_ncorr: ['']
       })
     }
 
@@ -80,6 +85,7 @@ export class StudentFormComponent implements OnInit {
       ESPE_CCOD: '',
       jornadaPostulacion: '',
       JORN_CCOD: '',
+      i_ofer_ncorr: ''
     });
     const SEDE_CCOD = selectedElement.SEDE_CCOD;
     this.dataCombo.carreraPostulacion = [];
@@ -100,6 +106,7 @@ export class StudentFormComponent implements OnInit {
       ESPE_CCOD: '',
       jornadaPostulacion: '',
       JORN_CCOD: '',
+      i_ofer_ncorr: ''
     });
     const CARR_CCOD = element.CARR_CCOD;
     this.getCboEspecialidad(SEDE_CCOD, CARR_CCOD);
@@ -111,11 +118,12 @@ export class StudentFormComponent implements OnInit {
     this.setValueForDefaultForm('especialidad',element.ESPE_TDESC);
     const SEDE_CCOD = this.dataCombo.sede.find(item => item.SEDE_TDESC === this.studentForm.controls.sede.value).SEDE_CCOD;
     this.studentForm.patchValue({
-      ESPE_CCOD: element.ESPE_TDESC,
+      ESPE_CCOD: element.ESPE_CCOD,
       jornadaPostulacion: '',
       JORN_CCOD: '',
+      i_ofer_ncorr: ''
     });
-    const ESPE_CCOD = element.ESPE_TDESC;
+    const ESPE_CCOD = element.ESPE_CCOD;
     this.getCboJornada(SEDE_CCOD, ESPE_CCOD);
     this.dataCombo.jornadaPostulacion = [];
   }
@@ -123,7 +131,8 @@ export class StudentFormComponent implements OnInit {
   public dropJornadaPostulacion(element: JornadaPostulacion){
     this.setValueForDefaultForm('jornadaPostulacion',element.JORN_TDESC);
     this.studentForm.patchValue({
-      JORN_CCOD: element.JORN_CCOD
+      JORN_CCOD: element.JORN_CCOD,
+      i_ofer_ncorr: element.OFER_NCORR
     });
     this.getCaracteristicasCarrera();
   }
@@ -133,9 +142,25 @@ export class StudentFormComponent implements OnInit {
     if (!this.studentForm.valid) {
       return false;
     } else {
-      alert(JSON.stringify(this.studentForm.value))
-    }
-    
+      // alert(JSON.stringify(this.studentForm.value))
+    } 
+  }
+
+  public confirm(){
+    this.loadingService.updateLoading(true);
+    const i_ofer_ncorr = this.studentForm.controls.i_ofer_ncorr.value;
+    const i_pers_ncorr = this.studentValueForDefault.PERS_NCORR;
+    this.comboBoxService.creaPostulacionArt68(i_pers_ncorr, i_ofer_ncorr).subscribe(
+      (res: any)=>{
+        this.creaPostulacionArt68 = res;
+        if( res[0].RESULTADO === 'OK'){
+          toastr.success('Datos guardados con &eacute;xito.');
+        }else{
+          toastr.error('No se pudo crear la postulación.');
+        }
+        this.loadingService.updateLoading(false);
+        $('#confirmar').addClass('d-none');
+    });
   }
 
   private loadData(){
@@ -187,7 +212,7 @@ export class StudentFormComponent implements OnInit {
   private getCboJornada(i_sede_ccod, i_espe_ccod){
     this.loadingService.updateLoading(true);
     this.comboBoxService.getCboJornada(i_sede_ccod, i_espe_ccod).subscribe(
-      (res: any)=>{
+      (res: JornadaPostulacion[])=>{
         this.dataCombo.jornadaPostulacion = res;
         this.loadingService.updateLoading(false);
     });
@@ -200,11 +225,11 @@ export class StudentFormComponent implements OnInit {
     const i_carr_ccod = this.studentForm.controls.CARR_CCOD.value;
     const i_espe_ccod = this.studentForm.controls.ESPE_CCOD.value;
     const i_jorn_ccod = this.studentForm.controls.JORN_CCOD.value;
-    debugger
+
     this.loadingService.updateLoading(true);
     this.comboBoxService.getCaracteristicasCarrera(i_peri_ccod, i_sede_ccod,i_carr_ccod, i_espe_ccod, i_jorn_ccod).subscribe(
-      (res: any)=>{
-        this.dataCombo.jornadaPostulacion = res;
+      (res: raceFeature[])=>{
+        this.raceFeature = res;
         this.loadingService.updateLoading(false);
     });
   }

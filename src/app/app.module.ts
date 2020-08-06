@@ -10,10 +10,10 @@ import { HeaderComponent } from './shared/header/header.component';
 
 import { CookieService } from 'ngx-cookie-service';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ResultsComponent } from './components/results/results.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SearchComponent } from './components/search/search.component';
 import { StudentFormComponent } from './components/student-form/student-form.component';
+import { PersonalInformationFormComponent } from './components/personal-information/personal-information.component';
 
 @NgModule({
   declarations: [
@@ -21,15 +21,16 @@ import { StudentFormComponent } from './components/student-form/student-form.com
     FooterComponent,
     HeaderComponent,
     SearchComponent,
-    ResultsComponent,
-    StudentFormComponent
+    StudentFormComponent,
+    PersonalInformationFormComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
-    ReactiveFormsModule
   ],
   providers: [ CookieService ],
   bootstrap: [AppComponent]

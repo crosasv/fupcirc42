@@ -20,115 +20,115 @@
   </div>
   
   <div class="card-body">
-    <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
       <div class="row">
         
         
         <div class="col-12">
           
+          <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
           
           <h5 class="h5-responsive font-weight-bold mb-0">Semestre <span id="periodo">{{ (period$ | async).PERI_TDESC }} {{ (period$ | async).ANOS_CCOD }}</span></h5>
           
-          <div class="row my-3">
-            
-            <div class="col-12 col-md-6">
-              <div class="md-form">
-                <div class="dropdown">
+            <div class="row my-3">
+              
+              <div class="col-12 col-md-6">
+                <div class="md-form">
+                  <div class="dropdown">
 
-                  <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false" formControlName="sede">
-                  <label class="select__label">Sede</label>
-                  <div class="invalid-feedback" >
-                    Este Campo es obligatorio.
-                  </div>
-                  
-                  <div class="dropdown-menu dropdown-primary">
-                    <a class="dropdown-item disabled">
-                      Seleccionar Sede
-                    </a> 
-                    <a class="dropdown-item" *ngFor="let sede of dataCombo.sede" (click)="dropSedes(sede)">
-                      {{ sede.SEDE_TDESC }}
-                    </a>  
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="col-12 col-md-6">
-              <div class="md-form">
-                <div class="dropdown">
-    
-                  <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false" formControlName="carreraPostulacion">
-                  <label class="select__label">Carrera Postulación</label>
-                  <div class="invalid-feedback" >
-                    Este Campo es obligatorio.
-                  </div>
-                  
-                  <div class="dropdown-menu dropdown-primary">
-                    <a class="dropdown-item disabled">
-                      Seleccionar Carrera
-                    </a> 
-                    <a class="dropdown-item" *ngFor="let carrera of dataCombo.carreraPostulacion" (click)="dropCarreraPostulacion(carrera)">
-                      {{ carrera.CARR_TDESC }}
-                    </a>  
+                    <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" formControlName="sede">
+                    <label class="select__label">Sede</label>
+                    <div class="invalid-feedback" >
+                      Este Campo es obligatorio.
+                    </div>
+                    
+                    <div class="dropdown-menu dropdown-primary">
+                      <a class="dropdown-item disabled">
+                        Seleccionar Sede
+                      </a> 
+                      <a class="dropdown-item" *ngFor="let sede of dataCombo.sede" (click)="dropSedes(sede)">
+                        {{ sede.SEDE_TDESC }}
+                      </a>  
+                    </div>
                   </div>
                 </div>
               </div>
-              
-            </div>
             
-            <div class="col-12 col-md-6">
-              <div class="md-form">
-                <div class="dropdown">
-    
-                  <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false" formControlName="especialidad">
-                  <label class="select__label">Especialidad/Mención</label>
-                  <div class="invalid-feedback" >
-                    Este Campo es obligatorio.
-                  </div>
-                  
-                  <div class="dropdown-menu dropdown-primary">
-                    <a class="dropdown-item disabled">
-                      Seleccionar Especialidad
-                    </a> 
-                    <a class="dropdown-item" *ngFor="let especialidad of dataCombo.especialidad" (click)="dropEspecialidad(especialidad)">
-                      {{ especialidad.ESPE_TDESC }}
-                    </a>  
+              <div class="col-12 col-md-6">
+                <div class="md-form">
+                  <div class="dropdown">
+      
+                    <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" formControlName="carreraPostulacion">
+                    <label class="select__label">Carrera Postulación</label>
+                    <div class="invalid-feedback" >
+                      Este Campo es obligatorio.
+                    </div>
+                    
+                    <div class="dropdown-menu dropdown-primary">
+                      <a class="dropdown-item disabled">
+                        Seleccionar Carrera
+                      </a> 
+                      <a class="dropdown-item" *ngFor="let carrera of dataCombo.carreraPostulacion" (click)="dropCarreraPostulacion(carrera)">
+                        {{ carrera.CARR_TDESC }}
+                      </a>  
+                    </div>
                   </div>
                 </div>
+                
               </div>
-              
-            </div>
             
-            <div class="col-12 col-md-6">
-              <div class="md-form">
-                <div class="dropdown">
-    
-                  <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false" formControlName="jornadaPostulacion">
-                  <label class="select__label">Jornada Postulación</label>
-                  <div class="invalid-feedback" >
-                    Este Campo es obligatorio.
-                  </div>
-                  
-                  <div class="dropdown-menu dropdown-primary">
-                    <a class="dropdown-item disabled">
-                      Seleccionar Jornada
-                    </a> 
-                    <a class="dropdown-item" *ngFor="let jornada of dataCombo.jornadaPostulacion" (click)="dropJornadaPostulacion(jornada)">
-                      {{ jornada.JORN_TDESC }}
-                    </a>  
+              <div class="col-12 col-md-6">
+                <div class="md-form">
+                  <div class="dropdown">
+      
+                    <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" formControlName="especialidad">
+                    <label class="select__label">Especialidad/Mención</label>
+                    <div class="invalid-feedback" >
+                      Este Campo es obligatorio.
+                    </div>
+                    
+                    <div class="dropdown-menu dropdown-primary">
+                      <a class="dropdown-item disabled">
+                        Seleccionar Especialidad
+                      </a> 
+                      <a class="dropdown-item" *ngFor="let especialidad of dataCombo.especialidad" (click)="dropEspecialidad(especialidad)">
+                        {{ especialidad.ESPE_TDESC }}
+                      </a>  
+                    </div>
                   </div>
                 </div>
+                
               </div>
-              
-            </div>
             
+              <div class="col-12 col-md-6">
+                <div class="md-form">
+                  <div class="dropdown">
+      
+                    <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" formControlName="jornadaPostulacion">
+                    <label class="select__label">Jornada Postulación</label>
+                    <div class="invalid-feedback" >
+                      Este Campo es obligatorio.
+                    </div>
+                    
+                    <div class="dropdown-menu dropdown-primary">
+                      <a class="dropdown-item disabled">
+                        Seleccionar Jornada
+                      </a> 
+                      <a class="dropdown-item" *ngFor="let jornada of dataCombo.jornadaPostulacion" (click)="dropJornadaPostulacion(jornada)">
+                        {{ jornada.JORN_TDESC }}
+                      </a>  
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
           </div>
+        </form>
           
-          <div id="informacion" class="d-none">
+          <div id="informacion" *ngIf="raceFeature.length">
             <h5 class="h5-responsive font-weight-bold mt-4">
               Caracter&iacute;sticas de la Carrera
             </h5>
@@ -142,7 +142,7 @@
                     T&iacute;tulo al cual opta:
                   </p>
                   <p>
-                    T&eacute;cnico de Nivel Superior Programador de Aplicaciones Computacionales
+                    {{ raceFeature[0].ESPE_TTITULO  }}
                   </p>
                 </div>
                 
@@ -151,7 +151,7 @@
                     Duraci&oacute;n:
                   </p>
                   <p>
-                    4 semestres
+                    {{ raceFeature[0].ESPE_NDURACION }} semestres
                   </p>
                 </div>
                 
@@ -160,7 +160,7 @@
                     Instituci&oacute;n:
                   </p>
                   <p>
-                    Centro de Formaci&oacute;n T&eacute;cnica
+                    {{ raceFeature[0].TTIT_TDESC }}
                   </p>
                 </div>
                 
@@ -173,13 +173,17 @@
             
             <div id="confirmar" class="row mb-2">
               <div class="col-12 d-flex">
-                <button class="btn btn-default waves-effect waves-light d-flex align-items-center" onclick="cargarInfo();">
+                <button class="btn btn-default waves-effect waves-light d-flex align-items-center" (click)="confirm()">
                   <span>Confirmar</span>
                 </button>
               </div>
             </div>
 
-
+          </div>
+          <app-personal-information-form *ngIf="creaPostulacionArt68.length" 
+            [studentValueForDefault]="studentValueForDefault"
+            [creaPostulacionArt68]="creaPostulacionArt68"
+            ></app-personal-information-form>
             <!-- <form id="informacion-personal" class="needs-validation d-none" onsubmit="validar(event)" novalidate>
               
               <h5 class="h5-responsive font-weight-bold mt-4 mb-0">
@@ -428,10 +432,8 @@
               
             </form> -->
             
-          </div>
         </div>
       </div>
-    </form>
   </div>
   
 </div>

@@ -1,0 +1,247 @@
+<form id="informacion-personal" [formGroup]="personalForm" class="needs-validation" (ngSubmit)="onSubmit()">
+                    
+  <h5 class="h5-responsive font-weight-bold mt-4 mb-0">
+    Informaci&oacute;n Personal
+  </h5>
+  
+  
+  <div class="row my-3">
+    
+    
+    <div class="col-12 col-sm-4">
+      <div id="nombres" class="md-form mb-3">
+        <input type="text" id="nombres" class="form-control" placeholder="Maximo Alejandro" required>
+        <label for="nombres" class="">Nombres *</label>
+        
+        
+        <div class="invalid-feedback">
+          Este campo es requerido
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-12 col-sm-4">
+      <div class="md-form mb-3">
+        <input type="text" id="paterno" class="form-control" placeholder="Soto" required>
+        <label for="paterno" class="">Apellido Paterno *</label>
+      </div>
+    </div>
+    
+    <div class="col-12 col-sm-4">
+      <div class="md-form mb-3">
+        <input type="text" id="materno" class="form-control" placeholder="Salinas">
+        <label for="materno" class="">Apellido Materno *</label>
+      </div>
+    </div>
+    
+    <div class="col-12 col-sm-4">
+      <div class="md-form mb-3">
+        <input type="text" id="rut-nuevo" class="form-control" placeholder="12.134.421-K">
+        <label for="rut-nuevo" class="">RUT</label>
+      </div>
+    </div>
+    
+    <div class="col-12 col-sm-4">
+      <div class="md-form mb-3">
+        <select class="mdb-select" required>
+          <option value="" disabled selected>Seleccionar G&eacute;nero</option>
+          <option value="1">Masculino</option>
+          <option value="2">Femenino</option>
+        </select>
+        <label>G&eacute;nero *</label>
+      </div>
+    </div>
+    
+    <div class="col-12 col-sm-4">
+      <div class="md-form mb-3">
+        <input placeholder="Seleccionar Fecha" type="text" id="date-picker-example" class="form-control datepicker" required>
+        <label for="date-picker-example" class="active">Fecha de Nacimiento *</label>
+      </div>
+    </div>
+    
+    <div class="col-12 col-sm-4">
+      <div class="md-form mb-3">
+        <select class="mdb-select" required>
+          <option value="" disabled selected>Seleccionar Estado</option>
+          <option value="1">Soltero</option>
+          <option value="2">Casado</option>
+        </select>
+        <label>Estado Civ&iacute;l</label>
+      </div>
+    </div>
+    
+    <div class="col-12 col-sm-4">
+      <div class="md-form mb-3">
+        <select class="mdb-select" required>
+          <option value="" disabled selected>Seleccionar Ocupaci&oacute;n</option>
+          <option value="1">Ocupaci&oacute;n 1</option>
+          <option value="2">Ocupaci&oacute;n 2</option>
+        </select>
+        <label>Ocupaci&oacute;n *</label>
+      </div>
+    </div>
+    
+    <div class="col-12 col-sm-4">
+      <div class="md-form mb-3">
+        <input type="email" id="email" class="form-control" required>
+        <label for="email" class="">Email Personal *</label>
+      </div>
+    </div>
+    
+    <div class="col-12 col-sm-4 d-flex align-items-start mt-2">
+      <p class="form-label mr-3">
+        Nacionalidad
+      </p>
+      <div>
+        <fieldset class="form-check pl-0">
+          <input class="form-check-input" name="group1" type="radio" id="radio-chile" checked="checked">
+          <label class="form-check-label" for="radio-chile">Chilena</label>
+        </fieldset>
+        <fieldset class="form-check pl-0">
+          <input class="form-check-input" name="group1" type="radio" id="radio-extranjero">
+          <label class="form-check-label" for="radio-extranjero">Extranjera</label>
+        </fieldset>
+      </div>
+    </div>
+    
+    <div class="col-12 col-sm-4 nacionalidad-extranjera d-none">
+      <div class="md-form mb-3">
+        <select class="mdb-select">
+          <option value="" disabled selected>Seleccionar Pa&iacute;s</option>
+          <option value="1">Pa&iacute;s 1</option>
+          <option value="2">Pa&iacute;s 2</option>
+          <option value="3">Pa&iacute;s 3</option>
+        </select>
+        <label>Pa&iacute;s de Origen</label>
+      </div>
+    </div>
+    
+  </div>
+  
+  
+  
+  <h5 class="h5-responsive font-weight-bold mt-5">
+    Direcci&oacute;n del Grupo Familiar
+  </h5>
+  
+  <div class="row my-3">
+    <div class="col-12 col-sm-4">
+      <div id="region" class="md-form mb-3">
+        <select class="mdb-select" required>
+          <option value="" disabled selected>Seleccionar Regi&oacute;n</option>
+          <option value="1">Regi&oacute;n 1</option>
+          <option value="2">Regi&oacute;n 2</option>
+        </select>
+        <label>Regi&oacute;n *</label>
+        
+        <div class="invalid-feedback">
+          Este campo es requerido
+        </div>
+      </div>
+    </div>
+    
+    
+    <div class="col-12 col-sm-4">
+      <div class="md-form mb-3">
+        <select class="mdb-select" required>
+          <option value="" disabled selected>Seleccionar Ciudad</option>
+          <option value="1">Ciudad 1</option>
+          <option value="2">Ciudad 2</option>
+        </select>
+        <label>Ciudad *</label>
+      </div>
+    </div>
+    
+    
+    <div class="col-12 col-sm-4">
+      <div class="md-form mb-3">
+        <select class="mdb-select" required>
+          <option value="" disabled selected>Seleccionar Comuna</option>
+          <option value="1">Comuna 1</option>
+          <option value="2">Comuna 2</option>
+        </select>
+        <label>Comuna *</label>
+      </div>
+    </div>
+    
+    
+    <div class="col-12 col-sm-8">
+      <div class="md-form mb-3">
+        <input type="text" id="direccion" class="form-control">
+        <label for="direccion" class="">Direcci&oacute;n *</label>
+      </div>
+    </div>
+    
+    <div class="col-12 col-sm-4">
+      <div class="md-form mb-3">
+        <input type="text" id="numero" class="form-control">
+        <label for="numero" class="">N&uacute;mero *</label>
+      </div>
+    </div>
+    
+    
+    <div class="col-12 col-sm-6">
+      <div class="md-form mb-3">
+        <input type="text" id="poblacion" class="form-control">
+        <label for="poblacion" class="">Poblaci&oacute;n</label>
+      </div>
+    </div>
+    
+    <div class="col-12 col-sm-3">
+      <div class="md-form mb-3">
+        <input type="text" id="block" class="form-control">
+        <label for="block" class="">Block</label>
+      </div>
+    </div>
+    
+    <div class="col-12 col-sm-3">
+      <div class="md-form mb-3">
+        <input type="text" id="depto" class="form-control">
+        <label for="depto" class="">Depto</label>
+      </div>
+    </div>
+    
+    
+    <div class="col-4 col-sm-2">
+      <div class="md-form mb-3">
+        <select class="mdb-select">
+          <option value="" disabled selected>02</option>
+          <option value="2">32</option>
+        </select>
+        <label>Tel&eacute;fono</label>
+      </div>
+    </div>
+    <div class="col-8 col-sm-4 pl-0">
+      <div class="md-form mb-3">
+        <input type="text" id="telefono" class="form-control">
+        
+      </div>
+    </div>
+    
+    <div class="col-4 col-sm-1">
+      <div class="md-form mb-3">
+        <label>+569</label>
+        <label class="active">Celular</label>
+      </div>
+    </div>
+    <div class="col-8 col-sm-5 ">
+      <div class="md-form mb-3">
+        <input type="text" id="celular" class="form-control">
+      </div>
+    </div>
+    
+  </div>
+  
+  
+  <div class="row">
+    <div class="col-md-12 d-flex justify-content-end pt-4 ">              
+      <button  type="submit" class="btn btn-rounded btn-default waves-effect mr-0">
+        <span class="d-flex align-items-center">
+          <i class="material-icons mr-1 icon-1x">send</i>
+          <span>Enviar Postulaci&oacute;n</span>
+        </span>
+      </button>
+    </div>
+  </div>
+  
+</form>

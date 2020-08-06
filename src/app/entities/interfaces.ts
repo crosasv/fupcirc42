@@ -111,6 +111,7 @@ export interface Sede {
 export interface JornadaPostulacion {
     JORN_CCOD: number;
     JORN_TDESC: string;
+    OFER_NCORR: string;
 }
 
 export interface CarreraPostulacion {
@@ -128,4 +129,47 @@ export interface PeriodoAcademico{
     TAPE_CCOD: number;
     PERI_TDESC: string;
     ANOS_CCOD: number;
+}
+
+export interface PeriodoAcademico{
+    PERI_CCOD: number;
+    TAPE_CCOD: number;
+    PERI_TDESC: string;
+    ANOS_CCOD: number;
+}
+
+export interface raceFeature {
+    TTIT_TDESC: string;
+    ESPE_TTITULO: string;
+    ESPE_NDURACION: string;
+}
+
+export interface PersonalInformation{
+    CIUD_CCOD: number;
+    CIUD_TCOMUNA: string;
+    CIUD_TDESC: string;
+    DIRE_TBLOCK: number | string;
+    DIRE_TCALLE: string;
+    DIRE_TCELULAR: string;
+    DIRE_TDEPTO: string;
+    DIRE_TFONO: number | string;
+    DIRE_TNRO: string;
+    DIRE_TPOBLACION: number | string;
+    ECIV_CCOD: number;
+    ECIV_TDESC: string;
+    OCUP_CCOD: number | string;
+    OCUP_TDESC: number | string;
+    PAIS_CCOD: number;
+    PAIS_TDESC: string;
+    PERS_FNACIMIENTO: string;
+    PERS_TAPE_MATERNO: string;
+    PERS_TAPE_PATERNO: string;
+    PERS_TEMAIL: string;
+    PERS_TNOMBRE: string;
+    REGI_CCOD: number;
+    REGI_TDESC: string;
+    RUT: string;
+    SEXO_CCOD: number;
+    SEXO_TDESC: string;
+    TDIR_CCOD: number;
 }
