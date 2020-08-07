@@ -173,3 +173,28 @@ export interface PersonalInformation{
     SEXO_TDESC: string;
     TDIR_CCOD: number;
 }
+
+export interface Sexo{
+    SEXO_TDESC: string;
+    SEXO_CCOD: number;
+}
+
+export interface Ocupacion{
+    OCUP_CCOD: number;
+    OCUP_TDESC: string;
+}
+
+export interface EstadoCivil {
+    ECIV_CCOD: number;
+    ECIV_TDESC: string;
+}
+
+export interface Pais{
+    PAIS_CCOD: number;
+    PAIS_TDESC: string;
+}
+
+export interface Region{
+    REGI_CCOD: number;
+    REGI_TDESC: string;
+}

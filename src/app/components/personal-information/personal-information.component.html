@@ -10,8 +10,8 @@
     
     <div class="col-12 col-sm-4">
       <div id="nombres" class="md-form mb-3">
-        <input type="text" id="nombres" class="form-control" placeholder="Maximo Alejandro" required>
-        <label for="nombres" class="">Nombres *</label>
+        <input type="text" id="nombres" class="form-control" formControlName="i_pers_tnombre" required>
+        <label for="nombres" class="active">Nombres *</label>
         
         
         <div class="invalid-feedback">
@@ -22,33 +22,44 @@
     
     <div class="col-12 col-sm-4">
       <div class="md-form mb-3">
-        <input type="text" id="paterno" class="form-control" placeholder="Soto" required>
-        <label for="paterno" class="">Apellido Paterno *</label>
+        <input type="text" id="paterno" class="form-control" formControlName="i_pers_tape_paterno" required>
+        <label for="paterno" class="active">Apellido Paterno *</label>
       </div>
     </div>
     
     <div class="col-12 col-sm-4">
       <div class="md-form mb-3">
-        <input type="text" id="materno" class="form-control" placeholder="Salinas">
-        <label for="materno" class="">Apellido Materno *</label>
+        <input type="text" id="materno" class="form-control" formControlName="i_pers_tape_materno" placeholder="Salinas">
+        <label for="materno" class="active">Apellido Materno *</label>
       </div>
     </div>
     
     <div class="col-12 col-sm-4">
       <div class="md-form mb-3">
-        <input type="text" id="rut-nuevo" class="form-control" placeholder="12.134.421-K">
-        <label for="rut-nuevo" class="">RUT</label>
+        <input type="text" id="rut-nuevo" class="form-control" formControlName="i_pers_nrut">
+        <label for="rut-nuevo" class="active">RUT</label>
       </div>
     </div>
     
     <div class="col-12 col-sm-4">
       <div class="md-form mb-3">
-        <select class="mdb-select" required>
-          <option value="" disabled selected>Seleccionar G&eacute;nero</option>
-          <option value="1">Masculino</option>
-          <option value="2">Femenino</option>
-        </select>
-        <label>G&eacute;nero *</label>
+        <div class="dropdown">
+          <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" formControlName="i_sexo_ccod_Combo">
+          <label class="select__label">G&eacute;nero *</label>
+          <div class="invalid-feedback" >
+            Este Campo es obligatorio.
+          </div>
+          
+          <div class="dropdown-menu dropdown-primary">
+            <a class="dropdown-item disabled">
+              Seleccionar G&eacute;nero
+            </a> 
+            <a class="dropdown-item" *ngFor="let sexo of sexoCombo" (click)="dropSelected('i_sexo_ccod', sexo, 'SEXO_CCOD')">
+              {{ sexo.SEXO_TDESC }}
+            </a>  
+          </div>
+        </div>
       </div>
     </div>
     
@@ -61,30 +72,52 @@
     
     <div class="col-12 col-sm-4">
       <div class="md-form mb-3">
-        <select class="mdb-select" required>
-          <option value="" disabled selected>Seleccionar Estado</option>
-          <option value="1">Soltero</option>
-          <option value="2">Casado</option>
-        </select>
-        <label>Estado Civ&iacute;l</label>
+        <div class="dropdown">
+          <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" formControlName="i_eciv_ccod_Combo">
+          <label class="select__label">Seleccionar Estado</label>
+          <div class="invalid-feedback" >
+            Este Campo es obligatorio.
+          </div>
+          
+          <div class="dropdown-menu dropdown-primary">
+            <a class="dropdown-item disabled">
+              Estado Civ&iacute;l
+            </a> 
+            <a class="dropdown-item" *ngFor="let estadoCivil of estadoCivilCombo" (click)="dropSelected('i_eciv_ccod', estadoCivil, 'ECIV_CCOD')">
+              {{ estadoCivil.ECIV_TDESC }}
+            </a>  
+          </div>
+        </div>
       </div>
     </div>
     
     <div class="col-12 col-sm-4">
       <div class="md-form mb-3">
-        <select class="mdb-select" required>
-          <option value="" disabled selected>Seleccionar Ocupaci&oacute;n</option>
-          <option value="1">Ocupaci&oacute;n 1</option>
-          <option value="2">Ocupaci&oacute;n 2</option>
-        </select>
-        <label>Ocupaci&oacute;n *</label>
+        <div class="dropdown">
+          <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" formControlName="i_ocup_ccod_Combo">
+          <label class="select__label">Ocupaci&oacute;n *</label>
+          <div class="invalid-feedback" >
+            Este Campo es obligatorio.
+          </div>
+          
+          <div class="dropdown-menu dropdown-primary">
+            <a class="dropdown-item disabled">
+              Seleccionar Ocupaci&oacute;n
+            </a> 
+            <a class="dropdown-item" *ngFor="let ocupacion of ocupacionCombo" (click)="dropSelected('i_ocup_ccod', ocupacion, 'OCUP_CCOD')">
+              {{ ocupacion.OCUP_TDESC }}
+            </a>  
+          </div>
+        </div>
       </div>
     </div>
     
     <div class="col-12 col-sm-4">
       <div class="md-form mb-3">
-        <input type="email" id="email" class="form-control" required>
-        <label for="email" class="">Email Personal *</label>
+        <input type="email" id="email" class="form-control" required formControlName="i_pers_temail">
+        <label for="email" class="active">Email Personal *</label>
       </div>
     </div>
     
@@ -106,13 +139,23 @@
     
     <div class="col-12 col-sm-4 nacionalidad-extranjera d-none">
       <div class="md-form mb-3">
-        <select class="mdb-select">
-          <option value="" disabled selected>Seleccionar Pa&iacute;s</option>
-          <option value="1">Pa&iacute;s 1</option>
-          <option value="2">Pa&iacute;s 2</option>
-          <option value="3">Pa&iacute;s 3</option>
-        </select>
-        <label>Pa&iacute;s de Origen</label>
+        <div class="dropdown">
+          <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" formControlName="i_pais_ccod_Combo">
+          <label class="select__label">Seleccionar Pa&iacute;s</label>
+          <div class="invalid-feedback" >
+            Este Campo es obligatorio.
+          </div>
+          
+          <div class="dropdown-menu dropdown-primary">
+            <a class="dropdown-item disabled">
+              Pa&iacute;s de Origen
+            </a> 
+            <a class="dropdown-item" *ngFor="let pais of paisCombo" (click)="dropSelected('i_pais_ccod', pais, 'PAIS_CCOD')">
+              {{ pais.PAIS_TDESC }}
+            </a>  
+          </div>
+        </div>
       </div>
     </div>
     
@@ -126,16 +169,23 @@
   
   <div class="row my-3">
     <div class="col-12 col-sm-4">
-      <div id="region" class="md-form mb-3">
-        <select class="mdb-select" required>
-          <option value="" disabled selected>Seleccionar Regi&oacute;n</option>
-          <option value="1">Regi&oacute;n 1</option>
-          <option value="2">Regi&oacute;n 2</option>
-        </select>
-        <label>Regi&oacute;n *</label>
-        
-        <div class="invalid-feedback">
-          Este campo es requerido
+      <div class="md-form mb-3">
+        <div class="dropdown">
+          <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" formControlName="i_region_ccod_Combo">
+          <label class="select__label">Regi&oacute;n *</label>
+          <div class="invalid-feedback" >
+            Este Campo es obligatorio.
+          </div>
+          
+          <div class="dropdown-menu dropdown-primary">
+            <a class="dropdown-item disabled">
+              Seleccionar Regi&oacute;n
+            </a> 
+            <a class="dropdown-item" *ngFor="let region of regionCombo" (click)="dropSelected('i_region_ccod', region, 'REGI_CCOD')">
+              {{ region.REGI_TDESC }}
+            </a>  
+          </div>
         </div>
       </div>
     </div>
@@ -167,37 +217,37 @@
     
     <div class="col-12 col-sm-8">
       <div class="md-form mb-3">
-        <input type="text" id="direccion" class="form-control">
-        <label for="direccion" class="">Direcci&oacute;n *</label>
+        <input type="text" id="direccion" class="form-control" formControlName="i_dire_tcalle">
+        <label for="direccion" class="active">Direcci&oacute;n *</label>
       </div>
     </div>
     
     <div class="col-12 col-sm-4">
       <div class="md-form mb-3">
-        <input type="text" id="numero" class="form-control">
-        <label for="numero" class="">N&uacute;mero *</label>
+        <input type="text" id="numero" class="form-control" formControlName="i_dire_tnro">
+        <label for="numero" class="active">N&uacute;mero *</label>
       </div>
     </div>
     
     
     <div class="col-12 col-sm-6">
       <div class="md-form mb-3">
-        <input type="text" id="poblacion" class="form-control">
-        <label for="poblacion" class="">Poblaci&oacute;n</label>
+        <input type="text" id="poblacion" class="form-control" formControlName="i_dire_tpoblacion">
+        <label for="poblacion" class="active">Poblaci&oacute;n</label>
       </div>
     </div>
     
     <div class="col-12 col-sm-3">
       <div class="md-form mb-3">
-        <input type="text" id="block" class="form-control">
-        <label for="block" class="">Block</label>
+        <input type="text" id="block" class="form-control" formControlName="i_dire_tblock">
+        <label for="block" class="active">Block</label>
       </div>
     </div>
     
     <div class="col-12 col-sm-3">
       <div class="md-form mb-3">
-        <input type="text" id="depto" class="form-control">
-        <label for="depto" class="">Depto</label>
+        <input type="text" id="depto" class="form-control" formControlName="i_dire_tdepto">
+        <label for="depto" class="active">Depto</label>
       </div>
     </div>
     
@@ -213,7 +263,7 @@
     </div>
     <div class="col-8 col-sm-4 pl-0">
       <div class="md-form mb-3">
-        <input type="text" id="telefono" class="form-control">
+        <input type="text" id="telefono" class="form-control" formControlName="i_dire_tfono">
         
       </div>
     </div>
@@ -226,7 +276,7 @@
     </div>
     <div class="col-8 col-sm-5 ">
       <div class="md-form mb-3">
-        <input type="text" id="celular" class="form-control">
+        <input type="text" id="celular" class="form-control" formControlName="i_dire_tcelular">
       </div>
     </div>
     
