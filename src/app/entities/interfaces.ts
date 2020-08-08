@@ -198,3 +198,7 @@ export interface Region{
     REGI_CCOD: number;
     REGI_TDESC: string;
 }
+
+export interface Ciudad {
+    CIUD_TCOMUNA: number;
+}

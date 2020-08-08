@@ -55,7 +55,7 @@
             <a class="dropdown-item disabled">
               Seleccionar G&eacute;nero
             </a> 
-            <a class="dropdown-item" *ngFor="let sexo of sexoCombo" (click)="dropSelected('i_sexo_ccod', sexo, 'SEXO_CCOD')">
+            <a class="dropdown-item" *ngFor="let sexo of sexoCombo" (click)="dropSelected('i_sexo_ccod', sexo, 'SEXO_CCOD', 'SEXO_TDESC')">
               {{ sexo.SEXO_TDESC }}
             </a>  
           </div>
@@ -84,7 +84,7 @@
             <a class="dropdown-item disabled">
               Estado Civ&iacute;l
             </a> 
-            <a class="dropdown-item" *ngFor="let estadoCivil of estadoCivilCombo" (click)="dropSelected('i_eciv_ccod', estadoCivil, 'ECIV_CCOD')">
+            <a class="dropdown-item" *ngFor="let estadoCivil of estadoCivilCombo" (click)="dropSelected('i_eciv_ccod', estadoCivil, 'ECIV_CCOD', 'ECIV_TDESC')">
               {{ estadoCivil.ECIV_TDESC }}
             </a>  
           </div>
@@ -106,7 +106,7 @@
             <a class="dropdown-item disabled">
               Seleccionar Ocupaci&oacute;n
             </a> 
-            <a class="dropdown-item" *ngFor="let ocupacion of ocupacionCombo" (click)="dropSelected('i_ocup_ccod', ocupacion, 'OCUP_CCOD')">
+            <a class="dropdown-item" *ngFor="let ocupacion of ocupacionCombo" (click)="dropSelected('i_ocup_ccod', ocupacion, 'OCUP_CCOD', 'OCUP_TDESC')">
               {{ ocupacion.OCUP_TDESC }}
             </a>  
           </div>
@@ -151,7 +151,7 @@
             <a class="dropdown-item disabled">
               Pa&iacute;s de Origen
             </a> 
-            <a class="dropdown-item" *ngFor="let pais of paisCombo" (click)="dropSelected('i_pais_ccod', pais, 'PAIS_CCOD')">
+            <a class="dropdown-item" *ngFor="let pais of paisCombo" (click)="dropSelected('i_pais_ccod', pais, 'PAIS_CCOD', 'PAIS_TDESC')">
               {{ pais.PAIS_TDESC }}
             </a>  
           </div>
@@ -182,7 +182,7 @@
             <a class="dropdown-item disabled">
               Seleccionar Regi&oacute;n
             </a> 
-            <a class="dropdown-item" *ngFor="let region of regionCombo" (click)="dropSelected('i_region_ccod', region, 'REGI_CCOD')">
+            <a class="dropdown-item" *ngFor="let region of regionCombo" (click)="dropSelected('i_region_ccod', region, 'REGI_CCOD', 'REGI_TDESC')">
               {{ region.REGI_TDESC }}
             </a>  
           </div>
@@ -193,17 +193,49 @@
     
     <div class="col-12 col-sm-4">
       <div class="md-form mb-3">
-        <select class="mdb-select" required>
-          <option value="" disabled selected>Seleccionar Ciudad</option>
-          <option value="1">Ciudad 1</option>
-          <option value="2">Ciudad 2</option>
-        </select>
-        <label>Ciudad *</label>
+        <div class="dropdown">
+          <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" formControlName="i_ciud_ccod">
+          <label class="select__label">Ciudad *</label>
+          <div class="invalid-feedback" >
+            Este Campo es obligatorio.
+          </div>
+          
+          <div class="dropdown-menu dropdown-primary">
+            <a class="dropdown-item disabled">
+              Seleccionar Ciudad
+            </a> 
+            <a class="dropdown-item" *ngFor="let ciudad of ciudadCombo" (click)="dropSelectedCiudad(ciudad.CIUD_TCOMUNA)">
+              {{ ciudad.CIUD_TCOMUNA }}
+            </a>  
+          </div>
+        </div>
       </div>
     </div>
     
     
     <div class="col-12 col-sm-4">
+      <div class="md-form mb-3">
+        <div class="dropdown">
+          <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" formControlName="i_ciud_ccod">
+          <label class="select__label">Ciudad *</label>
+          <div class="invalid-feedback" >
+            Este Campo es obligatorio.
+          </div>
+          
+          <div class="dropdown-menu dropdown-primary">
+            <a class="dropdown-item disabled">
+              Seleccionar Ciudad
+            </a> 
+            <a class="dropdown-item" *ngFor="let comuna of comunaCombo" (click)="dropSelectedCiudad(ciudad.CIUD_TCOMUNA)">
+              {{ comuna.CIUD_TCOMUNA }}
+            </a>  
+          </div>
+        </div>
+      </div>
+
+      
       <div class="md-form mb-3">
         <select class="mdb-select" required>
           <option value="" disabled selected>Seleccionar Comuna</option>

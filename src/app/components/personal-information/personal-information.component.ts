@@ -3,7 +3,7 @@ import { LoadingService } from 'src/app/service/utilities/loading.service';
 import { DataFormService } from 'src/app/service/utilities/dataForm.service';
 import { Observable } from 'rxjs';
 import { ComboBoxService } from 'src/app/service/comboBox/comboBox.service';
-import { studentInterface, PersonalInformation, Sexo, Ocupacion, EstadoCivil, Pais, Region } from 'src/app/entities/interfaces';
+import { studentInterface, PersonalInformation, Sexo, Ocupacion, EstadoCivil, Pais, Region, Ciudad } from 'src/app/entities/interfaces';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PersonalInformationService } from 'src/app/service/personal-information/personal-information.service';
 
@@ -24,9 +24,10 @@ export class PersonalInformationFormComponent implements OnInit {
   public paisCombo: Pais[] = [];
   public estadoCivilCombo: EstadoCivil[] = [];
   public sexoCombo: Sexo[] = [];
-  public regionCombo: Region[] = [];
-  public ciudadCombo = [];
   public ocupacionCombo: Ocupacion[] = [];
+  public regionCombo: Region[] = [];
+  public ciudadCombo: Ciudad[] = [];
+  public comunaCombo = [];
 
   constructor(
     private personalInformationService: PersonalInformationService,
@@ -38,18 +39,30 @@ export class PersonalInformationFormComponent implements OnInit {
 
   ngOnInit(){
     this.loadData();
+    this.viewComboPais();
   }
 
   public onSubmit(){
   }
 
-  public dropSelected(type: string, value: Sexo | Ocupacion | EstadoCivil, param: string){
-    console.log('type ',type )
-    console.log('value ',value )
+  public dropSelected(type: string, value: Sexo | Ocupacion | EstadoCivil | Ciudad | Region | Pais, paramCod: string, paramDesc: string){
+    const fieldCombo = `${type}_Combo`
     this.personalForm.patchValue({
-      [type]: value[param],
+      [type]: value[paramCod],
+      [fieldCombo]: value[paramDesc]
     });
+    if (type === 'i_region_ccod'){
+      this.getCboCiudad(value[paramCod]);
+    }
     console.log('sadas',this.personalForm.getRawValue())
+  }
+  public dropSelectedCiudad(ciudad: string){
+    console.log('ciudad',ciudad)
+    this.personalForm.patchValue({
+      i_ciud_ccod: ciudad
+    });
+    const region = this.personalForm.controls.i_region_ccod.value;
+    this.getCboComunas(String(region), ciudad);
   }
 
   private loadData(){
@@ -65,7 +78,6 @@ export class PersonalInformationFormComponent implements OnInit {
     this.loadingService.updateLoading(true);
     this.personalInformationService.getCboPais().subscribe(
       (res)=>{
-        console.log('getPais res ',res )
         this.loadingService.updateLoading(false);
         this.paisCombo = res
     })
@@ -75,7 +87,6 @@ export class PersonalInformationFormComponent implements OnInit {
     this.loadingService.updateLoading(true);
     this.personalInformationService.getCboEstadoCivil().subscribe(
       (res: EstadoCivil[])=>{
-        console.log('getPais res ',res )
         this.loadingService.updateLoading(false);
         this.estadoCivilCombo = res
     })
@@ -85,7 +96,6 @@ export class PersonalInformationFormComponent implements OnInit {
     this.loadingService.updateLoading(true);
     this.personalInformationService.getCboSexo().subscribe(
       (res)=>{
-        console.log('getPais res ',res )
         this.loadingService.updateLoading(false);
         this.sexoCombo = res
     })
@@ -95,7 +105,6 @@ export class PersonalInformationFormComponent implements OnInit {
     this.loadingService.updateLoading(true);
     this.personalInformationService.getCboRegion().subscribe(
       (res)=>{
-        console.log('getPais res ',res )
         this.loadingService.updateLoading(false);
         this.regionCombo = res
     })
@@ -105,27 +114,33 @@ export class PersonalInformationFormComponent implements OnInit {
     this.loadingService.updateLoading(true);
     this.personalInformationService.getCboOcupacion().subscribe(
       (res: Ocupacion[])=>{
-        console.log('getPais res ',res )
         this.loadingService.updateLoading(false);
         this.ocupacionCombo = res
     })
   } 
 
-  private getCboCiudad(){
-    // this.loadingService.updateLoading(true);
-    // this.personalInformationService.getCboCiudad().subscribe(
-    //   (res)=>{
-    //     console.log('getPais res ',res )
-    //     this.loadingService.updateLoading(false);
-    //     this.ciudadCombo = res
-    // });
+  private getCboCiudad(i_region_ccod: string){
+    this.loadingService.updateLoading(true);
+    this.personalInformationService.getCboCiudad(i_region_ccod).subscribe(
+      (res)=>{
+        this.loadingService.updateLoading(false);
+        this.ciudadCombo = res
+    });
+  }
+
+  private getCboComunas(i_region_ccod: string, i_ciud_tcomuna: string){
+    this.loadingService.updateLoading(true);
+    this.personalInformationService.getCboComunas(i_region_ccod, i_ciud_tcomuna).subscribe(
+      (res)=>{
+        this.loadingService.updateLoading(false);
+        this.comunaCombo = res
+    });
   }
 
   private getDatosPersonalesPostulante(){
     this.loadingService.updateLoading(true);
     this.personalInformationService.getDatosPersonalesPostulante(this.studentValueForDefault.PERS_NCORR).subscribe(
       (res: PersonalInformation[])=>{
-        console.log('getDatosPersonalesPostulante res ',res )
         this.loadingService.updateLoading(false);
         this.setDefaultDataForm(res[0]);
     })
@@ -167,6 +182,7 @@ export class PersonalInformationFormComponent implements OnInit {
 
       i_region_ccod: datauser.REGI_CCOD,
       i_region_ccod_Combo: datauser.REGI_TDESC,
+      i_ciud_ccod: datauser.CIUD_TCOMUNA,
       // i_ciud_ccod: datauser.,
       // comuna
 
@@ -180,6 +196,7 @@ export class PersonalInformationFormComponent implements OnInit {
       // i_pers_ncorr: datauser.,
       // i_audi_tusuario: datauser.,
     });
+    this.getCboCiudad(String(datauser.REGI_CCOD));
     console.log(this.personalForm.getRawValue())
   }
 
@@ -190,21 +207,23 @@ export class PersonalInformationFormComponent implements OnInit {
       i_pers_tape_materno: [''],
       i_pers_nrut: [''],
       i_pers_xdv: [''],
-      i_sexo_ccod: [''], // comboBox OK
-      i_sexo_ccod_Combo: [''], // comboBox OK
+      i_sexo_ccod: [''],
+      i_sexo_ccod_Combo: [''],
       i_pers_fnacimiento: [''],
-      i_eciv_ccod: [''], // comboBox
-      i_eciv_ccod_Combo: [''], // comboBox
-      i_ocup_ccod: [''], // comboBox
-      i_ocup_ccod_Combo: [''], // comboBox
+      i_eciv_ccod: [''],
+      i_eciv_ccod_Combo: [''],
+      i_ocup_ccod: [''],
+      i_ocup_ccod_Combo: [''],
       i_pers_temail: [''],
-      i_pais_ccod: [''], // comboBox
-      i_pais_ccod_Combo: [''], // comboBox
+      i_pais_ccod: [''],
+      i_pais_ccod_Combo: [''],
     
       i_region_ccod: [''],
       i_region_ccod_Combo: [''],
-      i_ciud_ccod: [''], // comboBox
 
+      i_ciud_ccod: [''],
+
+      
       i_dire_tcalle: [''],
       i_dire_tnro: [''],
       i_dire_tpoblacion: [''],
@@ -216,5 +235,18 @@ export class PersonalInformationFormComponent implements OnInit {
       i_pers_ncorr: [''],
       i_audi_tusuario: [''],
     })
+  }
+
+  private viewComboPais(){
+    $('#radio-extranjero').click(function() {
+      if($('#radio-extranjero').is(':checked')) { 
+        $('.nacionalidad-extranjera').removeClass('d-none');
+      } 
+    });
+    $('#radio-chile').click(function() {
+      if($('#radio-chile').is(':checked')) { 
+        $('.nacionalidad-extranjera').addClass('d-none');
+      } 
+    });
   }
 }

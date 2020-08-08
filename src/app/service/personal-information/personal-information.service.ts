@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
-import { raceFeature, JornadaPostulacion, Sexo, Ocupacion, EstadoCivil, Pais, Region } from 'src/app/entities/interfaces';
+import { raceFeature, JornadaPostulacion, Sexo, Ocupacion, EstadoCivil, Pais, Region, Ciudad } from 'src/app/entities/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -62,8 +62,8 @@ export class PersonalInformationService {
   }
   
   public getCboCiudad(i_regi_ccod: string){
-    const url = `${this.apiURL} combobox/getCboCiudad?i_regi_ccod=${i_regi_ccod}`;
-    return this.http.post<any>(url, this.httpOptions)
+    const url = `${this.apiURL}combobox/getCboCiudad?i_regi_ccod=${i_regi_ccod}`;
+    return this.http.post<Ciudad[]>(url, this.httpOptions)
       .pipe(
         map((res: any) => {
           const formaterToJson = JSON.parse(res);
@@ -85,6 +85,17 @@ export class PersonalInformationService {
   
   public getCboOcupacion(){
     const url = `${this.apiURL}combobox/getCboOcupacion`;
+    return this.http.post<Ocupacion[]>(url, this.httpOptions)
+      .pipe(
+        map((res: any) => {
+          const formaterToJson = JSON.parse(res);
+          return formaterToJson;
+        })
+      );
+  }
+
+  public getCboComunas(i_regi_ccod: string, i_ciud_tcomuna){
+    const url = `${this.apiURL}combobox/getCboComunas?i_regi_ccod=${i_regi_ccod}&i_ciud_tcomuna=${i_ciud_tcomuna}`;
     return this.http.post<Ocupacion[]>(url, this.httpOptions)
       .pipe(
         map((res: any) => {
