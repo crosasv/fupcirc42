@@ -65,6 +65,7 @@ export class PersonalInformationFormComponent implements OnInit {
     const i_post_ncorr = this.studentValueForDefault.POST_NCORR;
     this.personalInformationService.getDatosPostulacion(i_post_ncorr).subscribe(
       res=>{
+        // TODO res to constacia postulacin
         console.log('ressssssss : getDatosPostulacion', res)
       }
     );
