@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { LoadingService } from 'src/app/service/utilities/loading.service';
 import { DataFormService } from 'src/app/service/utilities/dataForm.service';
 import { Observable } from 'rxjs';
 import { ComboBoxService } from 'src/app/service/comboBox/comboBox.service';
 import { studentInterface, Sede, JornadaPostulacion, CarreraPostulacion, Especialidad, PeriodoAcademico, raceFeature } from 'src/app/entities/interfaces';
 import { FormBuilder } from '@angular/forms';
+import { UserInterface } from 'src/app/service/user/user.interface';
+import { PersonalInformationService } from 'src/app/service/personal-information/personal-information.service';
 
 declare var toastr: any;
 declare var $: any;
@@ -14,6 +16,8 @@ declare var $: any;
   styleUrls: ['./student-form.component.scss']
 })
 export class StudentFormComponent implements OnInit {
+
+  @Input() dataUser: UserInterface;
 
   private studient$: Observable<studentInterface>;
   public period$: Observable<PeriodoAcademico>;
@@ -42,7 +46,8 @@ export class StudentFormComponent implements OnInit {
   constructor(private comboBoxService: ComboBoxService,
     private loadingService: LoadingService,
     private dataFormService: DataFormService,
-    public fb: FormBuilder) { 
+    public fb: FormBuilder,
+    private personalInformationService: PersonalInformationService) { 
       this.studient$ = this.dataFormService.getStudent();
       this.period$ = this.dataFormService.getPeriod();
       this.studentForm = this.fb.group({
@@ -69,7 +74,6 @@ export class StudentFormComponent implements OnInit {
             this.setValueForDefaultForm('especialidad',this.studentValueForDefault.ESPE_TDESC);
             this.setValueForDefaultForm('jornadaPostulacion',this.studentValueForDefault.JORN_TDESC);
             this.loadData();
-            console.log('studient$studient$studient$',res);
           }
       }
     )
@@ -154,6 +158,7 @@ export class StudentFormComponent implements OnInit {
       (res: any)=>{
         this.creaPostulacionArt68 = res;
         if( res[0].RESULTADO === 'OK'){
+          this.getUltimoSemestrePEC();
           toastr.success('Datos guardados con &eacute;xito.');
         }else{
           toastr.error('No se pudo crear la postulación.');
@@ -161,6 +166,20 @@ export class StudentFormComponent implements OnInit {
         this.loadingService.updateLoading(false);
         $('#confirmar').addClass('d-none');
     });
+  }
+
+  private getUltimoSemestrePEC(){
+    const i_pers_ncorr = this.studentValueForDefault.PERS_NCORR;
+    const allPeriod = this.dataFormService.currentPeriod;
+    const i_peri_ccod = allPeriod.PERI_CCOD;
+    this.personalInformationService.getUltimoSemestrePEC(i_pers_ncorr, i_peri_ccod).subscribe(
+      res => {
+        if( res.SEMESTRES_ULTIMA_MATRICULA_CONTINUIDAD > 6){
+          
+        }
+        console.log('resss getUltimoSemestrePEC: ',res)
+      }
+    )
   }
 
   private loadData(){

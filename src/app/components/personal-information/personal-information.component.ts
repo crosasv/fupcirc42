@@ -6,6 +6,7 @@ import { ComboBoxService } from 'src/app/service/comboBox/comboBox.service';
 import { studentInterface, PersonalInformation, Sexo, Ocupacion, EstadoCivil, Pais, Region, Ciudad } from 'src/app/entities/interfaces';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PersonalInformationService } from 'src/app/service/personal-information/personal-information.service';
+import { UserInterface } from 'src/app/service/user/user.interface';
 
 declare var toastr: any;
 declare var $: any;
@@ -18,6 +19,7 @@ export class PersonalInformationFormComponent implements OnInit {
 
   @Input() studentValueForDefault: studentInterface;
   @Input() creaPostulacionArt68: [];
+  @Input() dataUser: UserInterface;
 
   public personalForm: FormGroup;
 
@@ -29,10 +31,13 @@ export class PersonalInformationFormComponent implements OnInit {
   public ciudadCombo: Ciudad[] = [];
   public comunaCombo = [];
 
+  public isSubmitted = false;
+
   constructor(
     private personalInformationService: PersonalInformationService,
     private loadingService: LoadingService,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    private dataFormService: DataFormService
   ){
     this.personalForm = this.structureForm();
   }
@@ -42,7 +47,37 @@ export class PersonalInformationFormComponent implements OnInit {
     this.viewComboPais();
   }
 
+  public aceptModal(event){
+    const rowForm = this.personalForm.getRawValue();
+    const dataFormat = this.formtDataForEndpoint(rowForm);
+    console.log('dataFromat', dataFormat);
+    this.personalInformationService.insDatosPostulante(dataFormat).subscribe(
+      res=>{
+        this.dataFormService.nextConstanciaPostulacion(true);
+      }
+    )
+    const i_pers_ncorr= this.studentValueForDefault.PERS_NCORR;
+    this.personalInformationService.cierraPostulacionArt68(i_pers_ncorr).subscribe(
+      res=>{
+        // TODO check this part
+      }
+    );
+    const i_post_ncorr = this.studentValueForDefault.POST_NCORR;
+    this.personalInformationService.getDatosPostulacion(i_post_ncorr).subscribe(
+      res=>{
+        console.log('ressssssss : getDatosPostulacion', res)
+      }
+    );
+  }
+
   public onSubmit(){
+    this.isSubmitted = true;
+    if (!this.personalForm.valid) {
+      return false;
+    } else {
+      $('#ModalConfirmacion').modal('show')
+      // alert(JSON.stringify(this.studentForm.value))
+    } 
   }
 
   public dropSelected(type: string, value: Sexo | Ocupacion | EstadoCivil | Ciudad | Region | Pais, paramCod: string, paramDesc: string){
@@ -147,28 +182,13 @@ export class PersonalInformationFormComponent implements OnInit {
   }
 
   private setDefaultDataForm(datauser: PersonalInformation){
-// CIUD_TDESC: "LAS CONDES"
-// REGI_CCOD: 13
-// REGI_TDESC: "REGIÓN METROPOLITANA"
-// TDIR_CCOD: 1
-
-// SEXO_CCOD: 2
-// SEXO_TDESC: "FEMENINO"
-// ECIV_CCOD: 1
-// ECIV_TDESC: "SOLTERO"
-// OCUP_CCOD: null
-// OCUP_TDESC: null
-// PAIS_CCOD: 1
-// PAIS_TDESC: "CHILE"
-// CIUD_CCOD: 1335
-// CIUD_TCOMUNA: "SANTIAGO"
-    const i_pers_xdv = datauser.RUT.split('-')[1];
+    const rutSplit = datauser.RUT.split('-');
     this.personalForm.patchValue({
       i_pers_tnombre: datauser.PERS_TNOMBRE,
       i_pers_tape_paterno: datauser.PERS_TAPE_PATERNO,
       i_pers_tape_materno: datauser.PERS_TAPE_MATERNO,
-      i_pers_nrut: datauser.RUT,
-      i_pers_xdv: i_pers_xdv,
+      i_pers_nrut: rutSplit[0],
+      i_pers_xdv: rutSplit[1],
       i_sexo_ccod: datauser.SEXO_CCOD, // combo OK
       i_sexo_ccod_Combo: datauser.SEXO_TDESC,  // combo OK
       i_pers_fnacimiento: datauser.PERS_FNACIMIENTO, // no set
@@ -183,6 +203,9 @@ export class PersonalInformationFormComponent implements OnInit {
       i_region_ccod: datauser.REGI_CCOD,
       i_region_ccod_Combo: datauser.REGI_TDESC,
       i_ciud_ccod: datauser.CIUD_TCOMUNA,
+
+      i_comuna_ccod: datauser.CIUD_CCOD,
+      i_comuna_ccod_Combo: datauser.CIUD_TDESC,
       // i_ciud_ccod: datauser.,
       // comuna
 
@@ -193,8 +216,8 @@ export class PersonalInformationFormComponent implements OnInit {
       i_dire_tdepto: datauser.DIRE_TDEPTO,
       i_dire_tfono: datauser.DIRE_TFONO, // combo
       i_dire_tcelular: datauser.DIRE_TCELULAR,
-      // i_pers_ncorr: datauser.,
-      // i_audi_tusuario: datauser.,
+      i_pers_ncorr: this.studentValueForDefault.PERS_NCORR,
+      i_audi_tusuario: this.dataUser.pers_nrut
     });
     this.getCboCiudad(String(datauser.REGI_CCOD));
     console.log(this.personalForm.getRawValue())
@@ -223,6 +246,8 @@ export class PersonalInformationFormComponent implements OnInit {
 
       i_ciud_ccod: [''],
 
+      i_comuna_ccod: [''],
+      i_comuna_ccod_Combo: [''],
       
       i_dire_tcalle: [''],
       i_dire_tnro: [''],
@@ -235,6 +260,21 @@ export class PersonalInformationFormComponent implements OnInit {
       i_pers_ncorr: [''],
       i_audi_tusuario: [''],
     })
+  }
+
+  private formtDataForEndpoint(row: any){
+    const format = {
+      ...row,
+      i_ciud_ccod: row.i_comuna_ccod
+    };
+    delete format.i_comuna_ccod;
+    delete format.i_sexo_ccod_Combo;
+    delete format.i_eciv_ccod_Combo;
+    delete format.i_ocup_ccod_Combo;
+    delete format.i_pais_ccod_Combo;
+    delete format.i_region_ccod_Combo;
+    delete format.i_comuna_ccod_Combo;
+    return format;
   }
 
   private viewComboPais(){

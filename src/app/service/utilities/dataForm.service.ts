@@ -8,8 +8,9 @@ import {
 })
 export class DataFormService {
   private dataStudent = new BehaviorSubject({});
-
   private periodSubject = new BehaviorSubject<PeriodoAcademico>(null);
+  private constanciaPostulacion = new BehaviorSubject<boolean>(false);
+
   constructor() { }
 
   getStudent(): Observable<any> {
@@ -30,5 +31,13 @@ export class DataFormService {
 
   get currentPeriod(): PeriodoAcademico{
     return this.periodSubject.value;
+  }
+  
+  getConstanciaPostulacion(): Observable<any> {
+    return this.constanciaPostulacion.asObservable();
+  }
+  
+  nextConstanciaPostulacion(state: boolean) {
+    this.constanciaPostulacion.next(state);
   }
 }

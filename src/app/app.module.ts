@@ -14,6 +14,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SearchComponent } from './components/search/search.component';
 import { StudentFormComponent } from './components/student-form/student-form.component';
 import { PersonalInformationFormComponent } from './components/personal-information/personal-information.component';
+import { ModalPostulacionComponent } from './components/modal-postulacion/modal-postulacion.component';
+import { ConstanciaPostulacionComponent } from './components/constancia-postulacion/constancia-postulacion.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { PersonalInformationFormComponent } from './components/personal-informat
     HeaderComponent,
     SearchComponent,
     StudentFormComponent,
-    PersonalInformationFormComponent
+    PersonalInformationFormComponent,
+    ModalPostulacionComponent,
+    ConstanciaPostulacionComponent
   ],
   imports: [
     BrowserModule,

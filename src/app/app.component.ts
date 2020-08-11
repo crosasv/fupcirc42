@@ -27,6 +27,8 @@ export class AppComponent implements OnInit {
   /**Service state Loading */
   public loading$: Observable<false>;
   /**Service state Loading */
+  
+  public constanciaPostulacion$: Observable<false>;
 
   constructor(
     private userService: UserService,
@@ -35,6 +37,7 @@ export class AppComponent implements OnInit {
     private loadingService: LoadingService,
     private searchService: SearchService) {
       this.cookieValue = this.cookieService.get('HTPSESIONIC');
+      this.constanciaPostulacion$ = this.dataFormService.getConstanciaPostulacion();
      }
   ngOnInit(): void {
     this.loading$ = this.loadingService.getLoading();
@@ -53,8 +56,7 @@ export class AppComponent implements OnInit {
           }
         );
     }
-  }
-  
+  }  
 }
 
 

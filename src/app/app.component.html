@@ -3,17 +3,17 @@
     [userName]="dataUser.usuario"
 ></app-header>
 <main class="container pt-2">
-  
-    <!-- <app-search *ngIf="dataFormSearch"
-        [dataForm]="dataFormSearch"
-        [dataUser]="dataUser"
-    ></app-search> -->
 
-    <app-search>
-        
-    </app-search>
-
-    <app-student-form></app-student-form>
+    <div *ngIf="!(constanciaPostulacion$ | async); else finalStep">
+        <app-search></app-search>
+        <app-student-form [dataUser]="dataUser"></app-student-form>
+    </div>
+    
+    <ng-template #finalStep>
+        <app-constancia-postulacion></app-constancia-postulacion>
+    </ng-template>
+    
+    
     <app-loading [isLoadding]="loading$ | async"></app-loading>
     
 </main>

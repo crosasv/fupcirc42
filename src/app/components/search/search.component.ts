@@ -78,10 +78,12 @@ export class SearchComponent implements OnInit {
       (res: any)=>{
         this.dataFormService.setPeriod(res[0]);
         this.getDataStudent(rutUnique[0], res[0].PERI_CCOD);
+        this.loadingService.updateLoading(false);
       });
   }
 
   private getDataStudent(rut: string, peri_ccod: number){
+    this.loadingService.updateLoading(true);
     this.searchService.getStudentLocked(rut, peri_ccod).subscribe(
       (res: any)=> {
         if (res[0].BLOQUEO !== null) {
@@ -95,6 +97,7 @@ export class SearchComponent implements OnInit {
   }
 
   private getContinuidad(rut: string, peri_ccod: number){
+    this.loadingService.updateLoading(true);
     this.searchService.checkPlan(rut).subscribe(
       (res: any)=> {
         if (res[0].CONTINUIDAD === 1) {
@@ -110,6 +113,7 @@ export class SearchComponent implements OnInit {
   }
 
   private getApplyStatus(rut: string, peri_ccod: number){
+    this.loadingService.updateLoading(true);
     this.searchService.getApplyStatus(rut, peri_ccod).subscribe(
       (res: any)=> {
         if (res[0].EPOS_CCOD.length === 2) {

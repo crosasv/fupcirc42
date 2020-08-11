@@ -218,31 +218,21 @@
       <div class="md-form mb-3">
         <div class="dropdown">
           <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="false" formControlName="i_ciud_ccod">
-          <label class="select__label">Ciudad *</label>
+          aria-haspopup="true" aria-expanded="false" formControlName="i_comuna_ccod_Combo">
+          <label class="select__label">Comuna *</label>
           <div class="invalid-feedback" >
             Este Campo es obligatorio.
           </div>
           
           <div class="dropdown-menu dropdown-primary">
             <a class="dropdown-item disabled">
-              Seleccionar Ciudad
-            </a> 
-            <a class="dropdown-item" *ngFor="let comuna of comunaCombo" (click)="dropSelectedCiudad(ciudad.CIUD_TCOMUNA)">
-              {{ comuna.CIUD_TCOMUNA }}
+              Seleccionar Comuna
+            </a>
+            <a class="dropdown-item" *ngFor="let comuna of comunaCombo" (click)="dropSelected('i_comuna_ccod', comuna, 'CIUD_CCOD', 'CIUD_TDESC')">
+              {{ comuna.CIUD_TDESC }}
             </a>  
           </div>
         </div>
-      </div>
-
-      
-      <div class="md-form mb-3">
-        <select class="mdb-select" required>
-          <option value="" disabled selected>Seleccionar Comuna</option>
-          <option value="1">Comuna 1</option>
-          <option value="2">Comuna 2</option>
-        </select>
-        <label>Comuna *</label>
       </div>
     </div>
     
@@ -327,3 +317,5 @@
   </div>
   
 </form>
+
+<app-modal-postulacion (aceptModal)="aceptModal($event)"></app-modal-postulacion>
