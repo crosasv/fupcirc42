@@ -63,7 +63,7 @@ export class SearchService {
       );
   }
 
-  public getApplyStatus(pers_nrut: string | number, i_peri_ccod: number) {
+  public getEstadoPostulacion(pers_nrut: string | number, i_peri_ccod: number) {
     const url = `${this.apiURL}datos/getEstadoPostulacion?i_pers_nrut=${pers_nrut}&i_peri_ccod=${i_peri_ccod}`;
     return this.http.post<any>(url, this.httpOptions)
       .pipe(
@@ -93,6 +93,27 @@ export class SearchService {
         })
       );
   }
-    
+
+  public getDatosSalidaIntermedia(i_pers_nrut, i_peri_ccod){
+    const url = `${this.apiURL}datos/getDatosSalidaIntermedia?i_pers_nrut=${i_pers_nrut}&i_peri_ccod=${i_peri_ccod}`;
+    return this.http.post<any>(url, this.httpOptions)
+      .pipe(
+        map((res: Array<SelectOptionsBase>) => {
+          return res;
+        })
+      );
+  }
+
+
+  public getPersNcorr(i_pers_nrut){
+    const url = `${this.apiURL}datos/getPersNcorr?i_pers_nrut=${i_pers_nrut}`;
+    return this.http.post<any>(url, this.httpOptions)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+
   //FIN FUP
 }

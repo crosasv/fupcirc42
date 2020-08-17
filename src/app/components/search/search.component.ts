@@ -103,7 +103,7 @@ export class SearchComponent implements OnInit {
     this.searchService.checkPlan(rut).subscribe(
       (res: any)=> {
         if (res[0].CONTINUIDAD === 1) {
-          this.getApplyStatus(rut, peri_ccod); 
+          this.getEstadoPostulacion(rut, peri_ccod); 
         } else { 
           this.modalBloqueoDescription = res[0].Texto;
           $('#ModalEstudianteBloqueado').modal('show');
@@ -116,33 +116,58 @@ export class SearchComponent implements OnInit {
 
   private getPostulacion(rut: string, peri_ccod: number){
     this.loadingService.updateLoading(true);
-    this.getApplyStatus(rut, peri_ccod);
-    this.searchService.getApplyStatus(rut, peri_ccod).subscribe(
+    this.getEstadoPostulacion(rut, peri_ccod);
+    this.searchService.getEstadoPostulacion(rut, peri_ccod).subscribe(
       (res: any)=> {
       }
     );
   }
 
-  private getApplyStatus(rut: string, peri_ccod: number){
+  private getEstadoPostulacion(rut: string, peri_ccod: number){
     this.loadingService.updateLoading(true);
-    this.searchService.getApplyStatus(rut, peri_ccod).subscribe(
+    this.searchService.getEstadoPostulacion(rut, peri_ccod).subscribe(
+      (res: any)=> {
+        if(!res.length){
+          // this.getPersNcorr(rut, peri_ccod);
+          this.getDatosSalidaIntermedia(rut, peri_ccod);
+        }else{
+          if (res[0].EPOS_CCOD === 2) {
+            this.dataFormService.nextConstanciaPostulacion(true);
+            this.getDatosPostulacion(res[0].POST_NCORR);
+          } else if (res[0].EPOS_CCOD != 2) {
+            this.loadingService.updateLoading(true);
+            this.searchService.getApplicantInfo(res[0].POST_NCORR).subscribe(
+              (res: any)=> {
+                this.loadingService.updateLoading(false);
+                console.log('res',res)
+                this.dataFormService.setStudent(res[0]);
+              }
+            );
+            $('#resultados').show();
+          } else {
+            $('#ModalEstudianteBloqueado').modal('show');
+          }
+          
+        }
+      }
+    );
+  }
+
+  private getPersNcorr(rut, peri_ccod){
+    this.searchService.getPersNcorr(rut).subscribe(
       (res: any)=> {
         this.loadingService.updateLoading(false);
-        if (res[0].EPOS_CCOD === 2) {
-          this.dataFormService.nextConstanciaPostulacion(true);
-          this.getDatosPostulacion(res[0].POST_NCORR);
-        } else if (res[0].EPOS_CCOD != 2) {
-          this.loadingService.updateLoading(true);
-          this.searchService.getApplicantInfo(res[0].POST_NCORR).subscribe(
-            (res: any)=> {
-              this.loadingService.updateLoading(false);
-              this.dataFormService.setStudent(res[0]);
-            }
-          );
-          $('#resultados').show();
-        } else {
-          $('#ModalEstudianteBloqueado').modal('show');
-        }
+        console.log('ress',res)
+        this.getDatosSalidaIntermedia(rut, peri_ccod);
+      }
+    );
+  }
+
+  private getDatosSalidaIntermedia(rut, peri_ccod){
+    this.searchService.getDatosSalidaIntermedia(rut, peri_ccod).subscribe(
+      (res: any)=> {
+        this.loadingService.updateLoading(false);
+        this.dataFormService.setStudent(res[0]);
       }
     );
   }
