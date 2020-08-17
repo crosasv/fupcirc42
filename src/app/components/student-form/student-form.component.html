@@ -1,6 +1,6 @@
 <div class="card expand_less mb-3" id="resultados" *ngIf="studentValueForDefault && studentValueForDefault.NOMBRE">
   <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
-    
+
     <h3 class="h3-responsive">
       <span id="nombre-alumno">
         {{ studentValueForDefault.NOMBRE }}
@@ -10,182 +10,240 @@
         {{ studentValueForDefault.RUT }}
       </span>
     </h3>
-    
-    
+
+
     <div class="header-icons float-right">
       <div class="badge badge-info mr-2">El sistema lo ha reconocido como postulante NUEVO</div>
       <button class="btn-none toggle-expand-btn" onclick="toggleExpandCard(this);"></button>
     </div>
-    
-  </div>
-  
-  <div class="card-body">
-      <div class="row">
-        
-        
-        <div class="col-12">
-          
-          <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
-          
-          <h5 class="h5-responsive font-weight-bold mb-0">Semestre <span id="periodo">{{ (period$ | async).PERI_TDESC }} {{ (period$ | async).ANOS_CCOD }}</span></h5>
-          
-            <div class="row my-3">
-              
-              <div class="col-12 col-md-6">
-                <div class="md-form">
-                  <div class="dropdown">
 
-                    <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false" formControlName="sede">
-                    <label class="select__label">Sede</label>
-                    <div class="invalid-feedback" >
-                      Este Campo es obligatorio.
-                    </div>
-                    
-                    <div class="dropdown-menu dropdown-primary">
-                      <a class="dropdown-item disabled">
-                        Seleccionar Sede
-                      </a> 
-                      <a class="dropdown-item" *ngFor="let sede of dataCombo.sede" (click)="dropSedes(sede)">
-                        {{ sede.SEDE_TDESC }}
-                      </a>  
-                    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+
+
+      <div class="col-12">
+
+        <form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+
+          <h5 class="h5-responsive font-weight-bold mb-0">Semestre <span id="periodo">{{ (period$ | async).PERI_TDESC }}
+              {{ (period$ | async).ANOS_CCOD }}</span></h5>
+
+          <div class="row my-3">
+
+            <div class="col-12 col-md-6">
+              <div class="md-form">
+                <div class="dropdown">
+
+                  <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" formControlName="sede">
+                  <label class="select__label">Sede</label>
+                  <div class="invalid-feedback">
+                    Este Campo es obligatorio.
+                  </div>
+
+                  <div class="dropdown-menu dropdown-primary w-100">
+                    <a class="dropdown-item disabled">
+                      Seleccionar Sede
+                    </a>
+                    <a class="dropdown-item" *ngFor="let sede of dataCombo.sede" (click)="dropSedes(sede)">
+                      {{ sede.SEDE_TDESC }}
+                    </a>
                   </div>
                 </div>
               </div>
-            
-              <div class="col-12 col-md-6">
-                <div class="md-form">
-                  <div class="dropdown">
-      
-                    <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false" formControlName="carreraPostulacion">
-                    <label class="select__label">Carrera Postulación</label>
-                    <div class="invalid-feedback" >
-                      Este Campo es obligatorio.
-                    </div>
-                    
-                    <div class="dropdown-menu dropdown-primary">
-                      <a class="dropdown-item disabled">
-                        Seleccionar Carrera
-                      </a> 
-                      <a class="dropdown-item" *ngFor="let carrera of dataCombo.carreraPostulacion" (click)="dropCarreraPostulacion(carrera)">
-                        {{ carrera.CARR_TDESC }}
-                      </a>  
-                    </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="md-form">
+                <div class="dropdown">
+
+                  <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    formControlName="carreraPostulacion">
+                  <label class="select__label">Carrera Postulación</label>
+                  <div class="invalid-feedback">
+                    Este Campo es obligatorio.
+                  </div>
+
+                  <div class="dropdown-menu dropdown-primary w-100">
+                    <a class="dropdown-item disabled">
+                      Seleccionar Carrera
+                    </a>
+                    <a class="dropdown-item" *ngFor="let carrera of dataCombo.carreraPostulacion"
+                      (click)="dropCarreraPostulacion(carrera)">
+                      {{ carrera.CARR_TDESC }}
+                    </a>
                   </div>
                 </div>
-                
               </div>
-            
-              <div class="col-12 col-md-6">
-                <div class="md-form">
-                  <div class="dropdown">
-      
-                    <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false" formControlName="especialidad">
-                    <label class="select__label">Especialidad/Mención</label>
-                    <div class="invalid-feedback" >
-                      Este Campo es obligatorio.
-                    </div>
-                    
-                    <div class="dropdown-menu dropdown-primary">
-                      <a class="dropdown-item disabled">
-                        Seleccionar Especialidad
-                      </a> 
-                      <a class="dropdown-item" *ngFor="let especialidad of dataCombo.especialidad" (click)="dropEspecialidad(especialidad)">
-                        {{ especialidad.ESPE_TDESC }}
-                      </a>  
-                    </div>
+
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="md-form">
+                <div class="dropdown">
+
+                  <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" formControlName="especialidad">
+                  <label class="select__label">Especialidad/Mención</label>
+                  <div class="invalid-feedback">
+                    Este Campo es obligatorio.
+                  </div>
+
+                  <div class="dropdown-menu dropdown-primary w-100">
+                    <a class="dropdown-item disabled">
+                      Seleccionar Especialidad
+                    </a>
+                    <a class="dropdown-item" *ngFor="let especialidad of dataCombo.especialidad"
+                      (click)="dropEspecialidad(especialidad)">
+                      {{ especialidad.ESPE_TDESC }}
+                    </a>
                   </div>
                 </div>
-                
               </div>
-            
-              <div class="col-12 col-md-6">
-                <div class="md-form">
-                  <div class="dropdown">
-      
-                    <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false" formControlName="jornadaPostulacion">
-                    <label class="select__label">Jornada Postulación</label>
-                    <div class="invalid-feedback" >
-                      Este Campo es obligatorio.
-                    </div>
-                    
-                    <div class="dropdown-menu dropdown-primary">
-                      <a class="dropdown-item disabled">
-                        Seleccionar Jornada
-                      </a> 
-                      <a class="dropdown-item" *ngFor="let jornada of dataCombo.jornadaPostulacion" (click)="dropJornadaPostulacion(jornada)">
-                        {{ jornada.JORN_TDESC }}
-                      </a>  
-                    </div>
+
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="md-form">
+                <div class="dropdown">
+
+                  <input class="select-all dropdown-toggle text-left" type="button" id="dropdownCampus"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                    formControlName="jornadaPostulacion">
+                  <label class="select__label">Jornada Postulación</label>
+                  <div class="invalid-feedback">
+                    Este Campo es obligatorio.
+                  </div>
+
+                  <div class="dropdown-menu dropdown-primary w-100">
+                    <a class="dropdown-item disabled">
+                      Seleccionar Jornada
+                    </a>
+                    <a class="dropdown-item" *ngFor="let jornada of dataCombo.jornadaPostulacion"
+                      (click)="dropJornadaPostulacion(jornada)">
+                      {{ jornada.JORN_TDESC }}
+                    </a>
                   </div>
                 </div>
-                
               </div>
+
+            </div>
           </div>
         </form>
-          
-          <div id="informacion" *ngIf="raceFeature.length">
-            <h5 class="h5-responsive font-weight-bold mt-4">
-              Caracter&iacute;sticas de la Carrera
-            </h5>
-            
-            <div class="row my-3">
-              
-              <div class="col-12">
-                
-                <div class="d-flex flex-wrap">
-                  <p class="grey-text fb-20">
-                    T&iacute;tulo al cual opta:
-                  </p>
-                  <p>
-                    {{ raceFeature[0].ESPE_TTITULO  }}
-                  </p>
-                </div>
-                
-                <div class="d-flex flex-wrap">
-                  <p class="grey-text fb-20">
-                    Duraci&oacute;n:
-                  </p>
-                  <p>
-                    {{ raceFeature[0].ESPE_NDURACION }} semestres
-                  </p>
-                </div>
-                
-                <div class="d-flex flex-wrap">
-                  <p class="grey-text fb-20">
-                    Instituci&oacute;n:
-                  </p>
-                  <p>
-                    {{ raceFeature[0].TTIT_TDESC }}
-                  </p>
-                </div>
-                
+
+        <div id="informacion" *ngIf="raceFeature.length">
+          <h5 class="h5-responsive font-weight-bold mt-4">
+            Caracter&iacute;sticas de la Carrera
+          </h5>
+
+          <div class="row my-3">
+
+            <div class="col-12">
+
+              <div class="d-flex flex-wrap">
+                <p class="grey-text fb-20">
+                  T&iacute;tulo al cual opta:
+                </p>
+                <p>
+                  {{ raceFeature[0].ESPE_TTITULO  }}
+                </p>
               </div>
-              
-              
-              
-            </div>
-            
-            
-            <div id="confirmar" class="row mb-2">
-              <div class="col-12 d-flex">
-                <button class="btn btn-default waves-effect waves-light d-flex align-items-center" (click)="confirm()">
-                  <span>Confirmar</span>
-                </button>
+
+              <div class="d-flex flex-wrap">
+                <p class="grey-text fb-20">
+                  Duraci&oacute;n:
+                </p>
+                <p>
+                  {{ raceFeature[0].ESPE_NDURACION }} semestres
+                </p>
               </div>
+
+              <div class="d-flex flex-wrap">
+                <p class="grey-text fb-20">
+                  Instituci&oacute;n:
+                </p>
+                <p>
+                  {{ raceFeature[0].TTIT_TDESC }}
+                </p>
+              </div>
+
             </div>
 
+
+
           </div>
-          <app-personal-information-form *ngIf="creaPostulacionArt68.length" 
-            [studentValueForDefault]="studentValueForDefault"
-            [creaPostulacionArt68]="creaPostulacionArt68"
-            [dataUser]="dataUser"
-          ></app-personal-information-form>
+
+
+          <div id="confirmar" class="row mb-2">
+            <div class="col-12 d-flex">
+              <button class="btn btn-default waves-effect waves-light d-flex align-items-center" (click)="confirm()">
+                <span>Confirmar</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+        <app-personal-information-form *ngIf="creaPostulacionArt68.length"
+          [studentValueForDefault]="studentValueForDefault" [creaPostulacionArt68]="creaPostulacionArt68"
+          [dataUser]="dataUser" [isDesabledFormPersonal]="isDesabledFormPersonal"></app-personal-information-form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ModalError" tabindex="-1" role="dialog" aria-labelledby="Confirmar" aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">Error</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="row">
+          <div class="col-md-12 mt-4">
+            <p class="text-center">No existe oferta académica.</p>
+          </div>
         </div>
       </div>
+
+      <div class="modal-footer pr-0">
+        <a class="btn btn-default waves-effect waves-light" href="/Inacap.Siga.FUP_Art68/">Cerrar</a>
+        <!-- <a class="btn btn-default waves-effect waves-light" data-dismiss="modal" onclick="toastr.success('Se asign&oacute; con &eacute;xito el beneficio a 22 alumnos. <br> Se han enviado los comprobantes a los correos de los alumnos.');">Aceptar</a> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="ModalUltimaMatrícula" tabindex="-1" role="dialog" aria-labelledby="Confirmar" aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">Error</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="row">
+          <div class="col-md-12 mt-4">
+            <p class="text-center">El estudiante posee su última matrícula en el programa de continuidad hace más de 3
+              años, por lo tanto, para continuar deberá contar con las condiciones de la Vicerrectoría Académica o
+              resolución del Comité Ad-Hoc, según corresponda, de acuerdo al Art. 70 del Reglamento Académico”</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer pr-0">
+        <a class="btn btn-default waves-effect waves-light" href="/Inacap.Siga.FUP_Art68/">Cerrar</a>
+        <!-- <a class="btn btn-default waves-effect waves-light" data-dismiss="modal" onclick="toastr.success('Se asign&oacute; con &eacute;xito el beneficio a 22 alumnos. <br> Se han enviado los comprobantes a los correos de los alumnos.');">Aceptar</a> -->
+      </div>
+    </div>
   </div>
 </div>

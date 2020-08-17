@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DataFormService } from 'src/app/service/utilities/dataForm.service';
+import { studentInterface } from 'src/app/entities/interfaces';
 
 declare var toastr: any;
 declare var $: any;
@@ -8,6 +10,14 @@ declare var $: any;
   styleUrls: ['./constancia-postulacion.component.scss']
 })
 export class ConstanciaPostulacionComponent {
-  constructor(){}
+  public constancia: studentInterface;
+  constructor( private dataFormService: DataFormService){}
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    console.log('this.dataFormService.dataConstanciaPostulacion',this.dataFormService.dataConstanciaPostulacion)
+    this.constancia = this.dataFormService.dataConstanciaPostulacion;
+  }
 
 }

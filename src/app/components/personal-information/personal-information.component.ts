@@ -20,6 +20,7 @@ export class PersonalInformationFormComponent implements OnInit {
   @Input() studentValueForDefault: studentInterface;
   @Input() creaPostulacionArt68: [];
   @Input() dataUser: UserInterface;
+  @Input() isDesabledFormPersonal: boolean;
 
   public personalForm: FormGroup;
 
@@ -45,27 +46,47 @@ export class PersonalInformationFormComponent implements OnInit {
   ngOnInit(){
     this.loadData();
     this.viewComboPais();
+    if( this.isDesabledFormPersonal ){
+      const rowForm = this.personalForm.getRawValue();
+      const keys = Object.keys(rowForm);
+      keys.forEach(element => {
+        this.personalForm.controls[element].disable();
+      });
+    }
   }
 
   public aceptModal(event){
     const rowForm = this.personalForm.getRawValue();
     const dataFormat = this.formtDataForEndpoint(rowForm);
     console.log('dataFromat', dataFormat);
+    this.loadingService.updateLoading(true);
     this.personalInformationService.insDatosPostulante(dataFormat).subscribe(
       res=>{
-        this.dataFormService.nextConstanciaPostulacion(true);
+        this.loadingService.updateLoading(false);
       }
     )
     const i_pers_ncorr= this.studentValueForDefault.PERS_NCORR;
+    this.loadingService.updateLoading(true);
     this.personalInformationService.cierraPostulacionArt68(i_pers_ncorr).subscribe(
-      res=>{
-        // TODO check this part
+      res=> {
+        this.loadingService.updateLoading(false);
+        if(res[0].RESULTADO === 'ERROR'){
+          $('#ModalError').modal('show');
+        }else{
+          this.getDatosPostulacion();
+        }
       }
     );
+  }
+
+  private getDatosPostulacion(){
     const i_post_ncorr = this.studentValueForDefault.POST_NCORR;
+    this.loadingService.updateLoading(true);
     this.personalInformationService.getDatosPostulacion(i_post_ncorr).subscribe(
       res=>{
-        // TODO res to constacia postulacin
+        this.loadingService.updateLoading(false);
+        this.dataFormService.nextConstanciaPostulacion(true);
+        this.dataFormService.dataConstanciaPostulacion = res[0];
         console.log('ressssssss : getDatosPostulacion', res)
       }
     );
@@ -89,13 +110,21 @@ export class PersonalInformationFormComponent implements OnInit {
     });
     if (type === 'i_region_ccod'){
       this.getCboCiudad(value[paramCod]);
+      this.personalForm.patchValue({
+        i_ciud_ccod: '',
+        i_ciud_ccod_Combo: '',
+        i_comuna_ccod: '',
+        i_comuna_ccod_Combo: ''
+      });
     }
     console.log('sadas',this.personalForm.getRawValue())
   }
   public dropSelectedCiudad(ciudad: string){
     console.log('ciudad',ciudad)
     this.personalForm.patchValue({
-      i_ciud_ccod: ciudad
+      i_ciud_ccod: ciudad,
+      i_comuna_ccod: '',
+      i_comuna_ccod_Combo: ''
     });
     const region = this.personalForm.controls.i_region_ccod.value;
     this.getCboComunas(String(region), ciudad);

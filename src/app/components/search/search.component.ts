@@ -10,6 +10,7 @@ import { toBase64String } from '@angular/compiler/src/output/source_map';
 import { studentInterface } from 'src/app/entities/interfaces';
 import { basicInterface } from 'src/app/entities/interfaces';
 import { DataFormService } from 'src/app/service/utilities/dataForm.service';
+import { PersonalInformationService } from 'src/app/service/personal-information/personal-information.service';
 
 
 declare var $: any;
@@ -41,6 +42,7 @@ export class SearchComponent implements OnInit {
     private searchService: SearchService, 
     private loadingService: LoadingService,
     private userService: UserService,
+    private personalInformationService: PersonalInformationService,
     private dataFormService: DataFormService) { }
 
   ngOnInit() {
@@ -101,7 +103,7 @@ export class SearchComponent implements OnInit {
     this.searchService.checkPlan(rut).subscribe(
       (res: any)=> {
         if (res[0].CONTINUIDAD === 1) {
-          this.getApplyStatus(rut, peri_ccod);          
+          this.getApplyStatus(rut, peri_ccod); 
         } else { 
           this.modalBloqueoDescription = res[0].Texto;
           $('#ModalEstudianteBloqueado').modal('show');
@@ -112,23 +114,48 @@ export class SearchComponent implements OnInit {
     );
   }
 
+  private getPostulacion(rut: string, peri_ccod: number){
+    this.loadingService.updateLoading(true);
+    this.getApplyStatus(rut, peri_ccod);
+    this.searchService.getApplyStatus(rut, peri_ccod).subscribe(
+      (res: any)=> {
+      }
+    );
+  }
+
   private getApplyStatus(rut: string, peri_ccod: number){
     this.loadingService.updateLoading(true);
     this.searchService.getApplyStatus(rut, peri_ccod).subscribe(
       (res: any)=> {
-        if (res[0].EPOS_CCOD.length === 2) {
-        } else if (res[0].EPOS_CCOD.length != 2) {
+        this.loadingService.updateLoading(false);
+        if (res[0].EPOS_CCOD === 2) {
+          this.dataFormService.nextConstanciaPostulacion(true);
+          this.getDatosPostulacion(res[0].POST_NCORR);
+        } else if (res[0].EPOS_CCOD != 2) {
+          this.loadingService.updateLoading(true);
           this.searchService.getApplicantInfo(res[0].POST_NCORR).subscribe(
             (res: any)=> {
               this.loadingService.updateLoading(false);
               this.dataFormService.setStudent(res[0]);
             }
           );
-          this.loadingService.updateLoading(false);
           $('#resultados').show();
         } else {
           $('#ModalEstudianteBloqueado').modal('show');
         }
+      }
+    );
+  }
+
+  private getDatosPostulacion(i_post_ncorr){
+    this.loadingService.updateLoading(true);
+    this.personalInformationService.getDatosPostulacion(i_post_ncorr).subscribe(
+      res=>{
+        this.loadingService.updateLoading(false);
+        this.dataFormService.nextConstanciaPostulacion(true);
+        this.dataFormService.dataConstanciaPostulacion = res[0];
+        // TODO res to constacia postulacin
+        console.log('ressssssss : getDatosPostulacion', res)
       }
     );
   }

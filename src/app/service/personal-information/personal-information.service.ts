@@ -117,7 +117,7 @@ export class PersonalInformationService {
   }
   
   public cierraPostulacionArt68(i_pers_ncorr) {
-    const url = `${this.apiURL}postulacion/cierraPostulacionArt68?i_pers_ncorr=${i_pers_ncorr}`;
+    const url = `${this.apiURL}datos/cierraPostulacionArt68?i_pers_ncorr=${i_pers_ncorr}`;
     return this.http.post<any>(url, this.httpOptions)
       .pipe(
         map((res: any) => {
@@ -141,6 +141,17 @@ export class PersonalInformationService {
 
   public getDatosPostulacion(i_post_ncorr){
     const url = `${this.apiURL}datos/getDatosPostulacion?i_post_ncorr=${i_post_ncorr}`;
+    return this.http.post<any>(url, this.httpOptions)
+      .pipe(
+        map((res: any) => {
+          const formaterToJson = JSON.parse(res);
+          return formaterToJson;
+        })
+      );
+  }
+
+  public validaMatriculaVigentePeriodoActual(i_pers_ncorr, i_peri_ccod){
+    const url = `${this.apiURL}datos/validaMatriculaVigentePeriodoActual?i_pers_ncorr=${i_pers_ncorr}&i_peri_ccod=${i_peri_ccod}`;
     return this.http.post<any>(url, this.httpOptions)
       .pipe(
         map((res: any) => {

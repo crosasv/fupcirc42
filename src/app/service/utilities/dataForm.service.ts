@@ -10,6 +10,7 @@ export class DataFormService {
   private dataStudent = new BehaviorSubject({});
   private periodSubject = new BehaviorSubject<PeriodoAcademico>(null);
   private constanciaPostulacion = new BehaviorSubject<boolean>(false);
+  public dataConstanciaPostulacion: studentInterface;
 
   constructor() { }
 

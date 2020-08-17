@@ -52,6 +52,17 @@ export class SearchService {
       );
   }
 
+  public getPostulacion(i_pers_ncorr: string | number, i_peri_ccod: string | number){
+    const url = `${this.apiURL}postulacion/getPostulacion?i_pers_ncorr=${i_pers_ncorr}&i_peri_ccod=${i_peri_ccod}`;
+    return this.http.post<any>(url, this.httpOptions)
+      .pipe(
+        map((res: any) => {
+          const formaterToJson = JSON.parse(res);
+          return formaterToJson;
+        })
+      );
+  }
+
   public getApplyStatus(pers_nrut: string | number, i_peri_ccod: number) {
     const url = `${this.apiURL}datos/getEstadoPostulacion?i_pers_nrut=${pers_nrut}&i_peri_ccod=${i_peri_ccod}`;
     return this.http.post<any>(url, this.httpOptions)

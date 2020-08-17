@@ -43,6 +43,8 @@ export class StudentFormComponent implements OnInit {
   public raceFeature: raceFeature[] = [];
   public creaPostulacionArt68: [] = [];
 
+  public isDesabledFormPersonal = false;
+
   constructor(private comboBoxService: ComboBoxService,
     private loadingService: LoadingService,
     private dataFormService: DataFormService,
@@ -174,10 +176,28 @@ export class StudentFormComponent implements OnInit {
     const i_peri_ccod = allPeriod.PERI_CCOD;
     this.personalInformationService.getUltimoSemestrePEC(i_pers_ncorr, i_peri_ccod).subscribe(
       res => {
-        if( res.SEMESTRES_ULTIMA_MATRICULA_CONTINUIDAD > 6){
-          
+        if( res[0].SEMESTRES_ULTIMA_MATRICULA_CONTINUIDAD > 6){
+          $('#ModalUltimaMatrícula').modal('show');
+          this.studentValueForDefault = null;
+        }else{
+          this.validaMatriculaVigentePeriodoActual();
         }
-        console.log('resss getUltimoSemestrePEC: ',res)
+      }
+    )
+  }
+  
+  private validaMatriculaVigentePeriodoActual(){
+    const i_pers_ncorr = this.studentValueForDefault.PERS_NCORR;
+    const allPeriod = this.dataFormService.currentPeriod;
+    const i_peri_ccod = allPeriod.PERI_CCOD;
+    this.personalInformationService.validaMatriculaVigentePeriodoActual(i_pers_ncorr, i_peri_ccod).subscribe(
+      res => {
+        if( res[0].MATR_VIGENTE === 1){
+          this.isDesabledFormPersonal = true;
+          $('ModalUltimaMatrícula').modal('show');
+        }else if( res[0].MATR_VIGENTE === 0){
+          this.isDesabledFormPersonal = false;
+        }
       }
     )
   }
@@ -186,6 +206,7 @@ export class StudentFormComponent implements OnInit {
     const SEDE_CCOD = this.studentValueForDefault.SEDE_CCOD;
     const CARR_CCOD = this.studentValueForDefault.CARR_CCOD;
     const ESPE_CCOD = this.studentValueForDefault.ESPE_CCOD;
+    this.loadingService.updateLoading(true);
     this.getCboSedes();
     this.getCboCarreras(SEDE_CCOD);
     this.getCboEspecialidad(SEDE_CCOD, CARR_CCOD);
@@ -199,7 +220,6 @@ export class StudentFormComponent implements OnInit {
   }
 
   private getCboSedes(){
-    this.loadingService.updateLoading(true);
     this.comboBoxService.getCboSedes().subscribe(
       (res: any)=>{
         this.dataCombo.sede = res;
@@ -209,7 +229,6 @@ export class StudentFormComponent implements OnInit {
   }
 
   private getCboCarreras(i_sede_ccod){
-    this.loadingService.updateLoading(true);
     this.comboBoxService.getCboCarreras(i_sede_ccod).subscribe(
       (res: any)=>{
         this.dataCombo.carreraPostulacion = res;
@@ -219,7 +238,6 @@ export class StudentFormComponent implements OnInit {
   }
 
   private getCboEspecialidad(i_sede_ccod, i_carr_ccod){
-    this.loadingService.updateLoading(true);
     this.comboBoxService.getCboEspecialidad(i_sede_ccod, i_carr_ccod).subscribe(
       (res: any)=>{
         this.dataCombo.especialidad = res;
@@ -229,7 +247,6 @@ export class StudentFormComponent implements OnInit {
   }
 
   private getCboJornada(i_sede_ccod, i_espe_ccod){
-    this.loadingService.updateLoading(true);
     this.comboBoxService.getCboJornada(i_sede_ccod, i_espe_ccod).subscribe(
       (res: JornadaPostulacion[])=>{
         this.dataCombo.jornadaPostulacion = res;
@@ -248,8 +265,13 @@ export class StudentFormComponent implements OnInit {
     this.loadingService.updateLoading(true);
     this.comboBoxService.getCaracteristicasCarrera(i_peri_ccod, i_sede_ccod,i_carr_ccod, i_espe_ccod, i_jorn_ccod).subscribe(
       (res: raceFeature[])=>{
-        this.raceFeature = res;
         this.loadingService.updateLoading(false);
+        if( res[0].ESPE_TTITULO === 'No conduce a Título'){
+          $('#ModalError').modal('show');
+          this.raceFeature = [];
+        }else{
+          this.raceFeature = res;
+        }
     });
   }
 
