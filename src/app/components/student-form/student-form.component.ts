@@ -209,9 +209,11 @@ export class StudentFormComponent implements OnInit {
     const JORN_CCOD = this.studentValueForDefault.JORN_CCOD;
     this.loadingService.updateLoading(true);
     this.getCboSedes(SEDE_CCOD);
-    this.getCboCarreras(SEDE_CCOD, CARR_CCOD);
-    this.getCboEspecialidad(SEDE_CCOD, CARR_CCOD, ESPE_CCOD);
-    this.getCboJornada(SEDE_CCOD, ESPE_CCOD, JORN_CCOD);
+    if(!SEDE_CCOD){
+      this.getCboCarreras(SEDE_CCOD, CARR_CCOD);
+      this.getCboEspecialidad(SEDE_CCOD, CARR_CCOD, ESPE_CCOD);
+      this.getCboJornada(SEDE_CCOD, ESPE_CCOD, JORN_CCOD);
+    }
   }
 
   private setValueForDefaultForm(type: string, value: string){
@@ -223,12 +225,12 @@ export class StudentFormComponent implements OnInit {
   private getCboSedes(SEDE_CCOD?){
     this.comboBoxService.getCboSedes().subscribe(
       (res: any)=>{
-        if(SEDE_CCOD){
-          const exist = res.some(item => item.SEDE_CCOD === SEDE_CCOD);
-          if( !exist ){
-            $('#ModalOfertaAcadémicaNoExiste').modal('show');
-          }
-        }
+        // if(SEDE_CCOD){
+        //   const exist = res.some(item => item.SEDE_CCOD === SEDE_CCOD);
+        //   if( !exist ){
+        //     $('#ModalOfertaAcadémicaNoExiste').modal('show');
+        //   }
+        // }
         this.dataCombo.sede = res;
         // this.studentValueForDefault[0].SEDE_CCOD = 10;
         this.loadingService.updateLoading(false);
@@ -238,12 +240,12 @@ export class StudentFormComponent implements OnInit {
   private getCboCarreras(i_sede_ccod, CARR_CCOD?){
     this.comboBoxService.getCboCarreras(i_sede_ccod).subscribe(
       (res: any)=>{
-        if(CARR_CCOD){
-          const exist = res.some(item => item.CARR_CCOD === CARR_CCOD);
-          if( !exist ){
-            $('#ModalOfertaAcadémicaNoExiste').modal('show');
-          }
-        }
+        // if(CARR_CCOD){
+        //   const exist = res.some(item => item.CARR_CCOD === CARR_CCOD);
+        //   if( !exist ){
+        //     $('#ModalOfertaAcadémicaNoExiste').modal('show');
+        //   }
+        // }
         this.dataCombo.carreraPostulacion = res;
         this.loadingService.updateLoading(false);
     });
@@ -253,12 +255,12 @@ export class StudentFormComponent implements OnInit {
   private getCboEspecialidad(i_sede_ccod, i_carr_ccod, ESPE_CCOD?){
     this.comboBoxService.getCboEspecialidad(i_sede_ccod, i_carr_ccod).subscribe(
       (res: any)=>{
-        if(ESPE_CCOD){
-          const exist = res.some(item => item.ESPE_CCOD === ESPE_CCOD);
-          if( !exist ){
-            $('#ModalOfertaAcadémicaNoExiste').modal('show');
-          }
-        }
+        // if(ESPE_CCOD){
+        //   const exist = res.some(item => item.ESPE_CCOD === ESPE_CCOD);
+        //   if( !exist ){
+        //     $('#ModalOfertaAcadémicaNoExiste').modal('show');
+        //   }
+        // }
         this.dataCombo.especialidad = res;
         this.loadingService.updateLoading(false);
     });
@@ -268,12 +270,12 @@ export class StudentFormComponent implements OnInit {
   private getCboJornada(i_sede_ccod, i_espe_ccod, JORN_CCOD?){
     this.comboBoxService.getCboJornada(i_sede_ccod, i_espe_ccod).subscribe(
       (res: JornadaPostulacion[])=>{
-        if(JORN_CCOD){
-          const exist = res.some(item => item.JORN_CCOD === JORN_CCOD);
-          if( !exist ){
-            $('#ModalOfertaAcadémicaNoExiste').modal('show');
-          }
-        }
+        // if(JORN_CCOD){
+        //   const exist = res.some(item => item.JORN_CCOD === JORN_CCOD);
+        //   if( !exist ){
+        //     $('#ModalOfertaAcadémicaNoExiste').modal('show');
+        //   }
+        // }
         this.dataCombo.jornadaPostulacion = res;
         this.loadingService.updateLoading(false);
     });
