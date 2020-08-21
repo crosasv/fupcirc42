@@ -98,8 +98,9 @@ export class SearchService {
     const url = `${this.apiURL}datos/getDatosSalidaIntermedia?i_pers_nrut=${i_pers_nrut}&i_peri_ccod=${i_peri_ccod}`;
     return this.http.post<any>(url, this.httpOptions)
       .pipe(
-        map((res: Array<SelectOptionsBase>) => {
-          return res;
+        map((res: any) => {
+          const formaterToJson = JSON.parse(res);
+          return formaterToJson;
         })
       );
   }

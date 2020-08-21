@@ -153,11 +153,11 @@ export class StudentFormComponent implements OnInit {
   }
 
   public confirm(){
-    this.loadingService.updateLoading(true);
     const i_ofer_ncorr = this.studentForm.controls.i_ofer_ncorr.value;
     const i_pers_ncorr = this.studentValueForDefault.PERS_NCORR;
     this.comboBoxService.creaPostulacionArt68(i_pers_ncorr, i_ofer_ncorr).subscribe(
       (res: any)=>{
+        this.loadingService.updateLoading(false);
         this.creaPostulacionArt68 = res;
         if( res[0].RESULTADO === 'OK'){
           this.getUltimoSemestrePEC();
@@ -165,17 +165,18 @@ export class StudentFormComponent implements OnInit {
         }else{
           toastr.error('No se pudo crear la postulación.');
         }
-        this.loadingService.updateLoading(false);
         $('#confirmar').addClass('d-none');
     });
   }
 
   private getUltimoSemestrePEC(){
+    this.loadingService.updateLoading(true);
     const i_pers_ncorr = this.studentValueForDefault.PERS_NCORR;
     const allPeriod = this.dataFormService.currentPeriod;
     const i_peri_ccod = allPeriod.PERI_CCOD;
     this.personalInformationService.getUltimoSemestrePEC(i_pers_ncorr, i_peri_ccod).subscribe(
       res => {
+        this.loadingService.updateLoading(false);
         if( res[0].SEMESTRES_ULTIMA_MATRICULA_CONTINUIDAD > 6){
           $('#ModalUltimaMatrícula').modal('show');
           this.studentValueForDefault = null;
@@ -187,11 +188,13 @@ export class StudentFormComponent implements OnInit {
   }
   
   private validaMatriculaVigentePeriodoActual(){
+    this.loadingService.updateLoading(true);
     const i_pers_ncorr = this.studentValueForDefault.PERS_NCORR;
     const allPeriod = this.dataFormService.currentPeriod;
     const i_peri_ccod = allPeriod.PERI_CCOD;
     this.personalInformationService.validaMatriculaVigentePeriodoActual(i_pers_ncorr, i_peri_ccod).subscribe(
       res => {
+        this.loadingService.updateLoading(false);
         if( res[0].MATR_VIGENTE === 1){
           this.isDesabledFormPersonal = true;
           $('ModalUltimaMatrícula').modal('show');
@@ -203,13 +206,13 @@ export class StudentFormComponent implements OnInit {
   }
 
   private loadData(){
-    const SEDE_CCOD = this.studentValueForDefault.SEDE_CCOD;
+    const SEDE_CCOD = this.studentValueForDefault.SEDE_CCOD; // consultar si sede viene siempre
     const CARR_CCOD = this.studentValueForDefault.CARR_CCOD;
     const ESPE_CCOD = this.studentValueForDefault.ESPE_CCOD;
     const JORN_CCOD = this.studentValueForDefault.JORN_CCOD;
     this.loadingService.updateLoading(true);
     this.getCboSedes(SEDE_CCOD);
-    if(!SEDE_CCOD){
+    if(CARR_CCOD){
       this.getCboCarreras(SEDE_CCOD, CARR_CCOD);
       this.getCboEspecialidad(SEDE_CCOD, CARR_CCOD, ESPE_CCOD);
       this.getCboJornada(SEDE_CCOD, ESPE_CCOD, JORN_CCOD);

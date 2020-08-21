@@ -83,6 +83,7 @@ export interface ClienteAdapterInterface {
 
 export interface studentInterface {
     RUT: string;
+    DV?: string;
     NOMBRE: string;
     POST_NCORR: number;
     SEDE_CCOD: number;
@@ -148,6 +149,8 @@ export interface PersonalInformation{
     CIUD_CCOD: number;
     CIUD_TCOMUNA: string;
     CIUD_TDESC: string;
+    CIUDAD: string;
+    COMUNA: string;
     DIRE_TBLOCK: number | string;
     DIRE_TCALLE: string;
     DIRE_TCELULAR: string;

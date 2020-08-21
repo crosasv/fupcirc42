@@ -167,19 +167,11 @@ export class SearchComponent implements OnInit {
     this.searchService.getDatosSalidaIntermedia(rut, peri_ccod).subscribe(
       (res: any)=> {
         this.loadingService.updateLoading(false);
+        const dv = this.searchForm.controls.rut.value.split('-')[1];
         const user: studentInterface = {
+          ...res[0],
           RUT: rut,
-          NOMBRE: '',
-          POST_NCORR: -1,
-          SEDE_CCOD: -1,
-          SEDE_TDESC: '',
-          CARR_CCOD: '',
-          CARR_TDESC: '',
-          ESPE_CCOD: '',
-          ESPE_TDESC: '',
-          JORN_CCOD: -1,
-          JORN_TDESC: '',
-          PERS_NCORR: -1,
+          DV: dv
         }
         this.dataFormService.setStudent(user);
       }

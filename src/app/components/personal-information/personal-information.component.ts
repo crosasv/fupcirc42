@@ -1,12 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { LoadingService } from 'src/app/service/utilities/loading.service';
 import { DataFormService } from 'src/app/service/utilities/dataForm.service';
-import { Observable } from 'rxjs';
+import { Observable, fromEvent, of } from 'rxjs';
 import { ComboBoxService } from 'src/app/service/comboBox/comboBox.service';
 import { studentInterface, PersonalInformation, Sexo, Ocupacion, EstadoCivil, Pais, Region, Ciudad } from 'src/app/entities/interfaces';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PersonalInformationService } from 'src/app/service/personal-information/personal-information.service';
 import { UserInterface } from 'src/app/service/user/user.interface';
+import { map, debounceTime, switchMap, distinctUntilChanged } from 'rxjs/operators';
 
 declare var toastr: any;
 declare var $: any;
@@ -15,7 +16,9 @@ declare var $: any;
   templateUrl: './personal-information.component.html',
   styleUrls: ['./personal-information.component.scss']
 })
-export class PersonalInformationFormComponent implements OnInit {
+export class PersonalInformationFormComponent implements OnInit, AfterViewInit {
+
+  @ViewChild('datePickerInput') fnacimiento: ElementRef;
 
   @Input() studentValueForDefault: studentInterface;
   @Input() creaPostulacionArt68: [];
@@ -53,6 +56,13 @@ export class PersonalInformationFormComponent implements OnInit {
         this.personalForm.controls[element].disable();
       });
     }
+  }
+
+  ngAfterViewInit(): void {
+    $('.datepicker').pickadate({
+      format: 'dd/mm/yyyy',
+      selectYears: 40
+    });
   }
 
   public aceptModal(event){
@@ -94,6 +104,9 @@ export class PersonalInformationFormComponent implements OnInit {
 
   public onSubmit(){
     this.isSubmitted = true;
+    console.log('tdasda',this.personalForm.getRawValue())
+    const date = this.fnacimiento.nativeElement.value;
+    this.personalForm.patchValue({i_pers_fnacimiento:date})
     if (!this.personalForm.valid) {
       return false;
     } else {
@@ -213,6 +226,8 @@ export class PersonalInformationFormComponent implements OnInit {
 
   private setDefaultDataForm(datauser: PersonalInformation){
     const rutSplit = datauser.RUT.split('-');
+    const date = new Date(datauser.PERS_FNACIMIENTO);
+    const formatDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
     this.personalForm.patchValue({
       i_pers_tnombre: datauser.PERS_TNOMBRE,
       i_pers_tape_paterno: datauser.PERS_TAPE_PATERNO,
@@ -221,7 +236,7 @@ export class PersonalInformationFormComponent implements OnInit {
       i_pers_xdv: rutSplit[1],
       i_sexo_ccod: datauser.SEXO_CCOD, // combo OK
       i_sexo_ccod_Combo: datauser.SEXO_TDESC,  // combo OK
-      i_pers_fnacimiento: datauser.PERS_FNACIMIENTO, // no set
+      i_pers_fnacimiento: formatDate, // no set
       i_eciv_ccod: datauser.ECIV_CCOD, // combo
       i_eciv_ccod_Combo: datauser.ECIV_TDESC, // combo
       i_ocup_ccod: datauser.OCUP_CCOD, // combo
@@ -232,10 +247,10 @@ export class PersonalInformationFormComponent implements OnInit {
 
       i_region_ccod: datauser.REGI_CCOD,
       i_region_ccod_Combo: datauser.REGI_TDESC,
-      i_ciud_ccod: datauser.CIUD_TCOMUNA,
+      i_ciud_ccod: datauser.CIUDAD,
 
       i_comuna_ccod: datauser.CIUD_CCOD,
-      i_comuna_ccod_Combo: datauser.CIUD_TDESC,
+      i_comuna_ccod_Combo: datauser.COMUNA,
       // i_ciud_ccod: datauser.,
       // comuna
 
@@ -250,7 +265,10 @@ export class PersonalInformationFormComponent implements OnInit {
       i_audi_tusuario: this.dataUser.pers_nrut
     });
     this.getCboCiudad(String(datauser.REGI_CCOD));
-    console.log(this.personalForm.getRawValue())
+    
+    var $input = $('.datepicker').pickadate()
+    var picker = $input.pickadate('picker');
+    picker.set('select', new Date(datauser.PERS_FNACIMIENTO))
   }
 
   private structureForm(){

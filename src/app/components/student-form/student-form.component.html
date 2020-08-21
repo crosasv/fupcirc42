@@ -1,4 +1,4 @@
-<div class="card expand_less mb-3" id="resultados" *ngIf="studentValueForDefault && studentValueForDefault.RUT">
+<div class="card expand_less mb-3" id="resultados" *ngIf="studentValueForDefault">
   <div class="card-header d-flex justify-content-between align-items-center flex-wrap">
 
     <h3 class="h3-responsive">
@@ -6,7 +6,10 @@
         {{ studentValueForDefault.NOMBRE }}
       </span>
       <span class="px-2 grey-text">|</span>
-      <span id="rut-alumno">
+      <span id="rut-alumno" *ngIf="studentValueForDefault.DV">
+        {{ studentValueForDefault.RUT }} - {{ studentValueForDefault.DV }}
+      </span>
+      <span id="rut-alumno" *ngIf="!studentValueForDefault.DV">
         {{ studentValueForDefault.RUT }}
       </span>
     </h3>
