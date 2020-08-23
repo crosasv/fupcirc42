@@ -102,12 +102,12 @@ export class SearchComponent implements OnInit {
     this.loadingService.updateLoading(true);
     this.searchService.checkPlan(rut).subscribe(
       (res: any)=> {
+        this.loadingService.updateLoading(false);
         if (res[0].CONTINUIDAD === 1) {
           this.getEstadoPostulacion(rut, peri_ccod); 
         } else { 
           this.modalBloqueoDescription = res[0].Texto;
           $('#ModalEstudianteBloqueado').modal('show');
-          this.loadingService.updateLoading(false);
         }
         
       }
@@ -132,7 +132,7 @@ export class SearchComponent implements OnInit {
           this.getDatosSalidaIntermedia(rut, peri_ccod);
         }else{
           if (res[0].EPOS_CCOD === 2) {
-            this.dataFormService.nextConstanciaPostulacion(true);
+            this.loadingService.updateLoading(false);
             this.getDatosPostulacion(res[0].POST_NCORR);
           } else if (res[0].EPOS_CCOD != 2) {
             this.loadingService.updateLoading(true);
