@@ -116,8 +116,8 @@ export class PersonalInformationService {
       );
   }
   
-  public cierraPostulacionArt68(i_pers_ncorr) {
-    const url = `${this.apiURL}datos/cierraPostulacionArt68?i_pers_ncorr=${i_pers_ncorr}`;
+  public cierraPostulacionArt68(i_post_ncorr) {
+    const url = `${this.apiURL}datos/cierraPostulacionArt68?i_post_ncorr=${i_post_ncorr}`;
     return this.http.post<any>(url, this.httpOptions)
       .pipe(
         map((res: any) => {

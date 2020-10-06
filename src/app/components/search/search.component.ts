@@ -90,6 +90,7 @@ export class SearchComponent implements OnInit {
       (res: any)=> {
         if (res[0].BLOQUEO !== null) {
           this.loadingService.updateLoading(false);
+          this.modalBloqueoDescription = res[0].BLOQUEO;
           $('#ModalEstudianteBloqueado').modal('show');
           this.searchForm.patchValue({rut:''});
         }else{
@@ -134,6 +135,7 @@ export class SearchComponent implements OnInit {
           if (res[0].EPOS_CCOD === 2) {
             this.loadingService.updateLoading(false);
             this.getDatosPostulacion(res[0].POST_NCORR);
+            this.obtenerDatosFupCerrado(res[0].POST_NCORR);
           } else if (res[0].EPOS_CCOD != 2) {
             this.loadingService.updateLoading(true);
             this.searchService.getApplicantInfo(res[0].POST_NCORR).subscribe(
@@ -185,9 +187,35 @@ export class SearchComponent implements OnInit {
         this.loadingService.updateLoading(false);
         this.dataFormService.nextConstanciaPostulacion(true);
         this.dataFormService.dataConstanciaPostulacion = res[0];
-        // TODO res to constacia postulacin
-        console.log('ressssssss : getDatosPostulacion', res)
       }
     );
   }
+
+  private obtenerDatosFupCerrado(i_post_ncorr){
+    this.loadingService.updateLoading(true);
+    this.searchService.obtenerDatosFupCerrado(i_post_ncorr).subscribe(
+      res=>{
+        this.loadingService.updateLoading(false);
+        console.log('obtenerDatosFupCerrado', res)
+        if(!res.length){
+          this.cierraPostulacionArt68(i_post_ncorr);
+        }
+      }
+    );
+  }
+
+  private cierraPostulacionArt68(i_post_ncorr){
+    this.personalInformationService.cierraPostulacionArt68(i_post_ncorr).subscribe(
+      res=> {
+        this.loadingService.updateLoading(false);
+        if(res[0].RESULTADO === 'CERRADA'){
+          this.obtenerDatosFupCerrado(i_post_ncorr);
+        }
+        else if((res[0].RESULTADO).match('ERROR')){
+          $('#ModalError').modal('show');
+        }
+      }
+    );
+  }
+  
 }

@@ -4,15 +4,15 @@
 ></app-header>
 <main class="container pt-2">
 
-    <div *ngIf="!(constanciaPostulacion$ | async); else finalStep">
+    <div>
         <app-search></app-search>
         <app-student-form [dataUser]="dataUser"></app-student-form>
     </div>
     
-    <ng-template #finalStep>
+    <!-- <ng-template #finalStep>
         <app-constancia-postulacion></app-constancia-postulacion>
-    </ng-template>
-    
+    </ng-template> -->
+    <app-constancia-postulacion *ngIf="stateContanciaPostulacion"></app-constancia-postulacion>
     
     <app-loading [isLoading]="loading$ | async"></app-loading>
     

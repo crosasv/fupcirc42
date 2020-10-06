@@ -76,8 +76,9 @@ export class PersonalInformationFormComponent implements OnInit, AfterViewInit {
       }
     )
     const i_pers_ncorr= this.studentValueForDefault.PERS_NCORR;
+    const i_post_ncorr= this.studentValueForDefault.POST_NCORR;
     this.loadingService.updateLoading(true);
-    this.personalInformationService.cierraPostulacionArt68(i_pers_ncorr).subscribe(
+    this.personalInformationService.cierraPostulacionArt68(i_post_ncorr).subscribe(
       res=> {
         this.loadingService.updateLoading(false);
         if(res[0].RESULTADO === 'ERROR'){

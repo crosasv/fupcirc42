@@ -15,6 +15,7 @@ import { SearchService } from './service/search/search.service';
 import { SelectOptionsBase } from './service/search/searchForm.interface';
 import { LoadingService } from './service/utilities/loading.service';
 
+declare var $: any;
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -29,6 +30,8 @@ export class AppComponent implements OnInit {
   /**Service state Loading */
   
   public constanciaPostulacion$: Observable<false>;
+
+  public stateContanciaPostulacion = false;
 
   constructor(
     private userService: UserService,
@@ -56,6 +59,16 @@ export class AppComponent implements OnInit {
           }
         );
     }
+    this.dataFormService.getConstanciaPostulacion().subscribe(
+      res => {
+        if(res){
+          this.stateContanciaPostulacion = true;
+          setTimeout(() => {
+            $('#ModalCostanciaPostulacion').modal('show');
+          }, 1000);
+        }
+      }
+    )
   }  
 }
 

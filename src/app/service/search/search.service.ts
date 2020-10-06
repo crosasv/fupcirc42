@@ -6,6 +6,7 @@ import { BuscarClienteBodyInterface } from 'src/app/entities/interfaceBody/inter
 import { ClienteAdapterInterface } from 'src/app/entities/interfaces';
 import { SelectOptionsBase } from './searchForm.interface';
 import { studentInterface } from '../../entities/interfaces';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -105,7 +106,6 @@ export class SearchService {
       );
   }
 
-
   public getPersNcorr(i_pers_nrut){
     const url = `${this.apiURL}datos/getPersNcorr?i_pers_nrut=${i_pers_nrut}`;
     return this.http.post<any>(url, this.httpOptions)
@@ -115,6 +115,17 @@ export class SearchService {
         })
       );
   }
+
+  public obtenerDatosFupCerrado(i_post_ncorr){
+    const url = `${this.apiURL}datos/obtenerDatosFupCerrado?i_post_ncorr=${i_post_ncorr}`;
+    return this.http.post<any>(url, this.httpOptions)
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      );
+  }
+  
 
   //FIN FUP
 }
