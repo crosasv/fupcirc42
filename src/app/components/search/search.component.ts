@@ -79,7 +79,8 @@ export class SearchComponent implements OnInit {
     this.searchService.getPeriod().subscribe(
       (res: any)=>{
         this.dataFormService.setPeriod(res[0]);
-        this.getDataStudent(rutUnique[0], res[0].PERI_CCOD);
+        // this.getDataStudent(rutUnique[0], res[0].PERI_CCOD);
+        this.getDataStudent(rutUnique[0], 226);
         this.loadingService.updateLoading(false);
       });
   }
@@ -141,7 +142,6 @@ export class SearchComponent implements OnInit {
             this.searchService.getApplicantInfo(res[0].POST_NCORR).subscribe(
               (res: any)=> {
                 this.loadingService.updateLoading(false);
-                console.log('res',res)
                 this.dataFormService.setStudent(res[0]);
               }
             );
@@ -159,7 +159,6 @@ export class SearchComponent implements OnInit {
     this.searchService.getPersNcorr(rut).subscribe(
       (res: any)=> {
         this.loadingService.updateLoading(false);
-        console.log('ress',res)
         this.getDatosSalidaIntermedia(rut, peri_ccod);
       }
     );
@@ -196,7 +195,6 @@ export class SearchComponent implements OnInit {
     this.searchService.obtenerDatosFupCerrado(i_post_ncorr).subscribe(
       res=>{
         this.loadingService.updateLoading(false);
-        console.log('obtenerDatosFupCerrado', res)
         if(!res.length){
           this.cierraPostulacionArt68(i_post_ncorr);
         }

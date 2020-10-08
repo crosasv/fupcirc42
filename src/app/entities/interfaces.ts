@@ -205,3 +205,12 @@ export interface Region{
 export interface Ciudad {
     CIUD_TCOMUNA: number;
 }
+
+
+export interface constanciaPostulacion {
+    CONT_NCORR: string;
+    PERIODO: string;
+    PROGRAMA_ESTUDIO: string;
+    FECHA_ACTIVACION: string;
+    SEDE_TDESC: string;
+}

@@ -45,7 +45,6 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.loading$ = this.loadingService.getLoading();
     this.loadingService.loadDummyData();
-    console.log('App Version, 0.0.10')
     if (this.cookieValue === '') {
       // window.location.href = 'https://portales.inacap.cl/';
     } else {

@@ -68,7 +68,6 @@ export class PersonalInformationFormComponent implements OnInit, AfterViewInit {
   public aceptModal(event){
     const rowForm = this.personalForm.getRawValue();
     const dataFormat = this.formtDataForEndpoint(rowForm);
-    console.log('dataFromat', dataFormat);
     this.loadingService.updateLoading(true);
     this.personalInformationService.insDatosPostulante(dataFormat).subscribe(
       res=>{
@@ -98,14 +97,12 @@ export class PersonalInformationFormComponent implements OnInit, AfterViewInit {
         this.loadingService.updateLoading(false);
         this.dataFormService.nextConstanciaPostulacion(true);
         this.dataFormService.dataConstanciaPostulacion = res[0];
-        console.log('ressssssss : getDatosPostulacion', res)
       }
     );
   }
 
   public onSubmit(){
     this.isSubmitted = true;
-    console.log('tdasda',this.personalForm.getRawValue())
     const date = this.fnacimiento.nativeElement.value;
     this.personalForm.patchValue({i_pers_fnacimiento:date})
     if (!this.personalForm.valid) {
@@ -131,10 +128,8 @@ export class PersonalInformationFormComponent implements OnInit, AfterViewInit {
         i_comuna_ccod_Combo: ''
       });
     }
-    console.log('sadas',this.personalForm.getRawValue())
   }
   public dropSelectedCiudad(ciudad: string){
-    console.log('ciudad',ciudad)
     this.personalForm.patchValue({
       i_ciud_ccod: ciudad,
       i_comuna_ccod: '',

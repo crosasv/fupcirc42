@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {  
+  constanciaPostulacion,
     PeriodoAcademico,
     studentInterface} from 'src/app/entities/interfaces';
 @Injectable({
@@ -10,7 +11,7 @@ export class DataFormService {
   private dataStudent = new BehaviorSubject({});
   private periodSubject = new BehaviorSubject<PeriodoAcademico>(null);
   private constanciaPostulacion = new BehaviorSubject<boolean>(false);
-  public dataConstanciaPostulacion: studentInterface;
+  public dataConstanciaPostulacion: constanciaPostulacion;
 
   constructor() { }
 
