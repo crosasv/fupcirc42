@@ -1,0 +1,69 @@
+-  request:
+      url: ^/inacap.cuentacorriente.mantenedorcliente/index.aspx/ObtenerInfoUsuario$
+      method: POST
+   response:
+      file: ./mocks/ObtenerInfoUsuario.json
+-  request:
+      url: ^/inacap.cuentacorriente.mantenedorcliente/index.aspx/ObtenerListadoRegiones$
+      method: POST
+   response:
+      file: ./mocks/ObtenerListadoRegiones.json
+-  request:
+      url: ^/inacap.cuentacorriente.mantenedorcliente/index.aspx/ObtenerListadoComuna$
+      method: POST
+      post: '{"QueryString":"1060989988E216AAAHu5AAWAAAnTtAAdR163","iRegiCcod":"15"}'
+   response:
+      file: ./mocks/ObtenerListadoComuna.json
+-  request:
+      url: ^/inacap.cuentacorriente.mantenedorcliente/index.aspx/ObtenerListadoClasificacion$
+      method: POST
+   response:
+      file: ./mocks/ObtenerListadoClasificacion.json
+-  request:
+      url: ^/inacap.cuentacorriente.mantenedorcliente/index.aspx/ObtenerListadoGiro$
+      method: POST
+   response:
+      file: ./mocks/ObtenerListadoGiro.json
+-  request:
+      url: ^/inacap.cuentacorriente.mantenedorcliente/index.aspx/ObtenerListadoBanco$
+      method: POST
+   response:
+      file: ./mocks/ObtenerListadoBanco.json
+-  request:
+      url: ^/inacap.cuentacorriente.mantenedorcliente/index.aspx/ObtenerListadoTipoCuenta$
+      method: POST
+   response:
+      file: ./mocks/ObtenerListadoTipoCuenta.json
+-  request:
+      url: ^/inacap.cuentacorriente.mantenedorcliente/index.aspx/ObtenerInfoCliente$
+      method: POST
+      post: '{"QueryString":"1060989988E216AAAHu5AAWAAAnTtAAdR163","iPersNrute":"72012000"}'
+   response:
+      file: ./mocks/ObtenerInfoCliente.json
+-  request:
+      url: ^/inacap.cuentacorriente.mantenedorcliente/index.aspx/ObtenerHistorialRegistros$
+      method: POST
+      post: '{"QueryString":"1060989988E216AAAHu5AAWAAAnTtAAdR163","iPersNrute":"6075718"}'
+   response:
+      file: ./mocks/ObtenerHistorialRegistros.json
+-  request:
+      url: ^/inacap.cuentacorriente.mantenedorcliente/index.aspx/RegistrarCliente$
+      method: POST
+   response:
+      file: ./mocks/RegistrarCliente.json
+-  request:
+      url: ^/inacap.cuentacorriente.mantenedorcliente/index.aspx/BuscarCliente$
+      method: POST
+   response:
+      latency: 5000
+      file: ./mocks/BuscarCliente.json
+-  request:
+      url: ^/inacap.cuentacorriente.mantenedorcliente/index.aspx/DesbloquearCliente$
+      method: POST
+   response:
+      file: ./mocks/DesbloquearCliente.json
+-  request:
+      url: ^/inacap.cuentacorriente.mantenedorcliente/index.aspx/ModificarCliente$
+      method: POST
+   response:
+      file: ./mocks/ModificarCliente.json
