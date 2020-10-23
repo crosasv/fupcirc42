@@ -65,6 +65,8 @@ export class PersonalInformationFormComponent implements OnInit, AfterViewInit {
     });
   }
 
+  get f() { return this.personalForm.controls; }
+
   public aceptModal(event){
     const rowForm = this.personalForm.getRawValue();
     const dataFormat = this.formtDataForEndpoint(rowForm);
@@ -262,7 +264,9 @@ export class PersonalInformationFormComponent implements OnInit, AfterViewInit {
       i_pers_ncorr: this.studentValueForDefault.PERS_NCORR,
       i_audi_tusuario: this.dataUser.pers_nrut
     });
-    this.getCboCiudad(String(datauser.REGI_CCOD));
+    if(datauser.REGI_CCOD){
+      this.getCboCiudad(String(datauser.REGI_CCOD));
+    }
     
     var $input = $('.datepicker').pickadate()
     var picker = $input.pickadate('picker');

@@ -66,13 +66,18 @@ export class StudentFormComponent implements OnInit {
         i_ofer_ncorr: ['']
       })
     }
-
+    public transform(value: any) {
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");;
+  }
   ngOnInit() {
     this.studient$.subscribe(
       (res: studentInterface) => {
           const keys = Object.keys(res);
           if (keys.length) {
+            this.creaPostulacionArt68 = [];
+            this.count = 0;
             this.studentValueForDefault = res;
+            this.studentValueForDefault.RUT = this.transform(res.RUT)
             this.setValueForDefaultForm('sede',this.studentValueForDefault.SEDE_TDESC);
             this.setValueForDefaultForm('SEDE_CCOD',this.studentValueForDefault.SEDE_CCOD);
             this.setValueForDefaultForm('carreraPostulacion',this.studentValueForDefault.CARR_TDESC);
@@ -299,7 +304,6 @@ export class StudentFormComponent implements OnInit {
             $('#ModalOfertaAcadémicaNoExiste').modal({backdrop: 'static', keyboard: false});
             $('#ModalOfertaAcadémicaNoExiste').modal('show');
           }else{
-            debugger
             this.setValueForDefaultForm('i_ofer_ncorr', exist.OFER_NCORR)
             this.count += 1;
             if(this.count === 4){this.getCaracteristicasCarrera();}
@@ -311,10 +315,11 @@ export class StudentFormComponent implements OnInit {
   }
 
   private getCaracteristicasCarrera(){
+    $('#confirmar').addClass('d-block');
     const period: PeriodoAcademico = this.dataFormService.currentPeriod;
     const i_peri_ccod = period.PERI_CCOD;
     const i_sede_ccod = this.studentForm.controls.SEDE_CCOD.value;
-    const i_carr_ccod = this.studentForm.controls.CARR_CCOD.value+ ' ';
+    const i_carr_ccod = this.studentForm.controls.CARR_CCOD.value;
     const i_espe_ccod = this.studentForm.controls.ESPE_CCOD.value;
     const i_jorn_ccod = this.studentForm.controls.JORN_CCOD.value;
 
