@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
 import { raceFeature, JornadaPostulacion, Sexo, Ocupacion, EstadoCivil, Pais, Region, Ciudad } from 'src/app/entities/interfaces';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -128,7 +129,8 @@ export class PersonalInformationService {
   }
 
   public insDatosPostulante(postulante: any){
-    const queryParams= `i_pers_ncorr=${postulante.i_pers_ncorr}&i_ciud_ccod=${postulante.i_ciud_ccod}&i_dire_tcalle=${postulante.i_dire_tcalle}&i_dire_tnro=${postulante.i_dire_tnro}&i_dire_tpoblacion=${postulante.i_dire_tpoblacion}&i_dire_tblock=${postulante.i_dire_tblock}&i_dire_tdepto=${postulante.i_dire_tdepto}&i_dire_tcelular=${postulante.i_dire_tcelular}&i_pers_tnombre=${postulante.i_pers_tnombre}&i_pers_tape_paterno=${postulante.i_pers_tape_paterno}&i_pers_tape_materno=${postulante.i_pers_tape_materno}&i_pers_nrut=${postulante.i_pers_nrut}&i_pers_xdv=${postulante.i_pers_xdv}&i_sexo_ccod=${postulante.i_sexo_ccod}&i_pers_fnacimiento=${postulante.i_pers_fnacimiento}&i_eciv_ccod=${postulante.i_eciv_ccod}&i_ocup_ccod=${postulante.i_ocup_ccod}&i_pers_temail=${postulante.i_pers_temail}&i_pais_ccod=${postulante.i_pais_ccod}&i_audi_tusuario=${postulante.i_audi_tusuario}`
+    const rut = postulante.i_pers_nrut.split('-');
+    const queryParams= `i_pers_ncorr=${postulante.i_pers_ncorr}&i_ciud_ccod=${postulante.i_ciud_ccod}&i_dire_tcalle=${postulante.i_dire_tcalle}&i_dire_tnro=${postulante.i_dire_tnro}&i_dire_tpoblacion=${postulante.i_dire_tpoblacion}&i_dire_tblock=${postulante.i_dire_tblock}&i_dire_tdepto=${postulante.i_dire_tdepto}&i_dire_tcelular=${postulante.i_dire_tcelular}&i_pers_tnombre=${postulante.i_pers_tnombre}&i_pers_tape_paterno=${postulante.i_pers_tape_paterno}&i_pers_tape_materno=${postulante.i_pers_tape_materno}&i_pers_nrut=${rut[0]}&i_pers_xdv=${rut[1]}&i_sexo_ccod=${postulante.i_sexo_ccod}&i_pers_fnacimiento=${postulante.i_pers_fnacimiento}&i_eciv_ccod=${postulante.i_eciv_ccod}&i_ocup_ccod=${postulante.i_ocup_ccod}&i_pers_temail=${postulante.i_pers_temail}&i_pais_ccod=${postulante.i_pais_ccod}&i_audi_tusuario=${postulante.i_audi_tusuario}`
     const url = `${this.apiURL}datos/insDatosPostulante?${queryParams}`;
     return this.http.post<any>(url, this.httpOptions)
       .pipe(

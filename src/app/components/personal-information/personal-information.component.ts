@@ -301,7 +301,7 @@ export class PersonalInformationFormComponent implements OnInit, AfterViewInit {
       
       i_dire_tcalle: ['', Validators.required],
       i_dire_tnro: ['', Validators.required],
-      i_dire_tpoblacion: ['', Validators.required],
+      i_dire_tpoblacion: [''],
       i_dire_tblock: [''],
       i_dire_tdepto: [''],
       i_dire_tfono: [''],

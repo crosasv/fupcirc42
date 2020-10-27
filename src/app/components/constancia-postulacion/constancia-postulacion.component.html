@@ -1,15 +1,15 @@
-<div class="modal fade" id="ModalCostanciaPostulacion" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="card mb-3">
-      <div class="card-header  d-flex justify-content-between align-items-center flex-wrap">
-        <h3 class="d-flex justify-content-between flex-wrap align-items-center h3-responsive mb-0">
-          Constancia.
-        </h3>
+<div class="modal fade" id="ModalCostanciaPostulacion" tabindex="-1" role="dialog" aria-labelledby="Confirmar" aria-hidden="true">
+  <div class="modal-dialog modal-notify modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading lead">Error</p>
+        <a type="button" class="close" href="/Inacap.siga.FUP_Circ42/" >
+          <span aria-hidden="true">&times;</span>
+        </a>
       </div>
-      <div class="card-body">
-        <div class="row align-items-start mb-3">
-          
-          <div class="col-12 text-center">
+      <div class="modal-body p-0">
+        <div class="row">
+          <div class="col-md-12 mt-4 text-center">
             <p>
               Se ha generado y activado el Contrato Nº: {{ constancia.CONT_NCORR }}
             </p>
@@ -22,93 +22,13 @@
             <p> Semestre: {{ constancia.PERIODO }}</p>
             <p> Sede: {{ constancia.SEDE_TDESC }} </p>
           </div>
-          <!-- <div class="col-12">
-            
-            <div class="d-flex flex-wrap">
-              <p class="fb-15">
-                Nombre Completo:
-              </p>
-              <p class="font-weight-bold">
-                {{ constancia.NOMBRE }}
-              </p>
-            </div>
-            
-            
-            <div class="d-flex flex-wrap">
-              <p class="fb-15">
-                RUT:
-              </p>
-              <p class="font-weight-bold">
-                {{ constancia.RUT }}
-              </p>
-            </div>
-            
-            
-            <div class="d-flex flex-wrap">
-              <p class="fb-15">
-                Sede Postulaci&oacute;n:
-              </p>
-              <p class="font-weight-bold">
-                {{ constancia.SEDE_TDESC }}
-              </p>
-            </div>
-            
-            <div class="d-flex flex-wrap">
-              <p class="fb-15">
-                Carrera Postulaci&oacute;n:
-              </p>
-              <p class="font-weight-bold">
-                {{ constancia.CARR_TDESC }}
-              </p>
-            </div>
-            
-            
-            <div class="d-flex flex-wrap">
-              <p class="fb-15">
-                Especialidad/Menci&oacute;n:
-              </p>
-              <p class="font-weight-bold">
-                {{ constancia.ESPE_TDESC }}
-              </p>
-            </div>
-            
-            <div class="d-flex flex-wrap">
-              <p class="fb-15">
-                Jornada Postulaci&oacute;n
-              </p>
-              <p class="font-weight-bold">
-                {{ constancia.JORN_TDESC }}
-              </p>
-            </div>
-            
-          </div> -->
-          
-          
-          <!-- <div class="col-12 mt-3">
-            <p>
-              El presente Documento Acredita tu Postulaci&oacute;n a INACAP, en ning&uacute;n caso representa una reserva de Matr&iacute;cula
-            </p>
-            <p>
-              Para ello debes acercarte a cualquier sede de INACAP a lo largo de Chile y hacer efectiva tu matr&iacute;cula.
-            </p>
-            <p>
-              Si desea realizar cambios a tu postulaci&oacute;n, ya enviada a INACAP, debes hacerlo en cualquier Oficina de Registro Curricular a lo largo de Chile.
-            </p>
-            <p class="font-weight-bold mt-3">
-              Documentaci&oacute;n que debe presentar al momento de Matricularse:
-            </p>
-            <ul>
-              <li>Licencia de Ense&ntilde;anza Media</li>
-            </ul>
-          </div> -->
-
-          <div class="modal-footer">
-            <a id="aceptar-envio" class="btn btn-default btn-sm float-right"  href="/Inacap.siga.FUP_Circ42/">Aceptar</a>
-          </div>
-          
         </div>
       </div>
-      
+
+      <div class="modal-footer pr-0">
+        <a class="btn btn-default waves-effect waves-light" href="/Inacap.siga.FUP_Circ42/">Aceptar</a>
+        <!-- <a class="btn btn-default waves-effect waves-light" data-dismiss="modal" onclick="toastr.success('Se asign&oacute; con &eacute;xito el beneficio a 22 alumnos. <br> Se han enviado los comprobantes a los correos de los alumnos.');">Aceptar</a> -->
+      </div>
     </div>
   </div>
 </div>

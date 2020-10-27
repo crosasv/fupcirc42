@@ -61,7 +61,7 @@ export class SearchComponent implements OnInit {
         if(validationRut(this.searchForm.value.rut)){
           this.getStudentLocked();
           this.dataFormService.nextConstanciaPostulacion(false);
-          //$('#buscarToggle').trigger('click');
+          $('#buscarToggle').trigger('click');
         }else{
           this.searchForm.controls['rut'].setErrors({'incorrect': true});
         }
@@ -219,7 +219,7 @@ export class SearchComponent implements OnInit {
     this.searchService.obtenerDatosFupCerrado(i_post_ncorr).subscribe(
       res=>{
         this.loadingService.updateLoading(false);
-        if(!res.length){
+        if(!res.length || res[0].CONT_NCORR === null){
           this.cierraPostulacionArt68(i_post_ncorr);
         }
         else {
